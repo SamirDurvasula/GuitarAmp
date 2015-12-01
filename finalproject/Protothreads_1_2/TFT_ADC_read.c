@@ -13,6 +13,9 @@
 #include "config.h"
 // threading library
 #include "pt_cornell_1_2.h"
+// graphics libraries
+#include "tft_master.h"
+#include "tft_gfx.h"
 
 
 // === thread structures ============================================
@@ -32,6 +35,8 @@ int generate_period = 2000 ;
 int pwm_on_time = 500 ;
 //print state variable
 int printing=0 ;
+// string buffer
+char buffer[60];
 
 // == Timer 2 ISR =====================================================
 // just toggles a pin for timeing strobe
@@ -54,7 +59,9 @@ static PT_THREAD (protothread_cmd(struct pt *pt))
 {
     PT_BEGIN(pt);
       while(1) {
-          
+            tft_fillRoundRect(20,10, 200, 200, 1, ILI9340_BLACK);// x,y,w,h,radius,color
+            tft_setTextColor(ILI9340_YELLOW); 
+            tft_setTextSize(2);
             // send the prompt via DMA to serial
             sprintf(PT_send_buffer,"cmd>");
             // by spawning a print thread
@@ -84,41 +91,59 @@ static PT_THREAD (protothread_cmd(struct pt *pt))
                  // update the pulse start/stop
                  //SetPulseOC2(generate_period>>2, generate_period>>1);
              
-                 */ }
+                 */ 
+                tft_setCursor(20, 10);
+                sprintf(buffer,"DSP: %d", value);
+
+             }
              if (cmd[0] == 'n'){
-                 //set mux to Distortion
-                 mPORTAWrite(0x0001);
-                 
+                //set mux to Distortion
+                mPORTAWrite(0x0001);
+                tft_setCursor(20, 10);
+                sprintf(buffer,"Distortion: %d", value);
+
              }
              if (cmd[0] == 'g'){
                 //gain control
-                 mPORTBClearBits(BIT_14 | BIT_15);
+                mPORTBClearBits(BIT_14 | BIT_15);
                 mPORTBSetBits(value <<14);
+                tft_setCursor(20, 20);
+                sprintf(buffer,"Gain: %d", value);
              }
              if (cmd[0] == 't'){
-                 //treble control
-                 mPORTAWrite(0x0002);
+                //treble control
+                mPORTAWrite(0x0002);
+                tft_setCursor(20, 30);
+                sprintf(buffer,"Treble: %d", value);
                  
              }
              if (cmd[0] == 'm'){
-                 //mid control
-                 mPORTAWrite(0x0003);
+                //mid control
+                mPORTAWrite(0x0003);
+                tft_setCursor(20, 40);
+                sprintf(buffer,"Mid: %d", value);
              }
              if(cmd[0] == 'b'){
-                 //bass control
-                 mPORTAWrite(0x0004);
+                //bass control
+                mPORTAWrite(0x0004);
+                tft_setCursor(20, 50);
+                sprintf(buffer,"Bass: %d", value);
              }
              
              if(cmd[0] == 'l'){
-                 //level control
-                 mPORTAWrite(0x0005);
+                //level control
+                mPORTAWrite(0x0005);
+                tft_setCursor(20, 60);
+                sprintf(buffer,"Level: %d", value);
              }
              if(cmd[0] == 'r'){
-                 //left/right control
-                 mPORTAWrite(0x0006);                   
+                //left/right control
+                mPORTAWrite(0x0006);
+                tft_setCursor(20, 70);
+                sprintf(buffer,"Left/Right: %d", value);
              }
              
-             
+             tft_writeString(buffer);
              /*if (cmd[0]=='d' ) {
                  pwm_on_time = value ;
                  SetDCOC3PWM(pwm_on_time);
@@ -186,6 +211,17 @@ int main(void)
   PT_INIT(&pt_cmd);
   PT_INIT(&pt_time);
 
+  // init the display
+  tft_init_hw();
+  tft_begin();
+  tft_fillScreen(ILI9340_BLACK);
+  //240x320 vertical display
+  tft_setRotation(0); // Use tft_setRotation(1) for 320x240
+  tft_fillRoundRect(0,10, 100, 14, 1, ILI9340_BLACK);// x,y,w,h,radius,color
+  tft_setCursor(0, 10);
+  tft_setTextColor(ILI9340_YELLOW); tft_setTextSize(2);
+
+  
   // schedule the threads
   while(1) {
     PT_SCHEDULE(protothread_cmd(&pt_cmd));
