@@ -13,6 +13,7 @@
 // serial stuff
 #include <stdio.h>
 
+
 //=============================================================
 // 40 MHz
 #pragma config FNOSC = FRCPLL, POSCMOD = OFF

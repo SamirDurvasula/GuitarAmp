@@ -13,11 +13,9 @@
 #include "config.h"
 // threading library
 #include "pt_cornell_1_2.h"
-// graphics libraries
-#include "tft_master.h"
-#include "tft_gfx.h"
 
-
+// A-channel, 1x, active
+#define DAC_config_chan_A 0b0000000000000000
 // === thread structures ============================================
 // thread control structs
 
@@ -35,19 +33,20 @@ int generate_period = 2000 ;
 int pwm_on_time = 500 ;
 //print state variable
 int printing=0 ;
-// string buffer
-char buffer[60];
+
+volatile SpiChannel spiChn = SPI_CHANNEL1 ;
+volatile int spiClkDiv = 4 ; //run directly at peripheral bus clk freq?
 
 // == Timer 2 ISR =====================================================
 // just toggles a pin for timeing strobe
-/*void __ISR(_TIMER_2_VECTOR, ipl2) Timer2Handler(void)
+void __ISR(_TIMER_2_VECTOR, ipl2) Timer2Handler(void)
 {
     // generate a trigger strobe for timing other events
     mPORTBSetBits(BIT_0);
     // clear the timer interrupt flag
     mT2ClearIntFlag();
     mPORTBClearBits(BIT_0);
-}*/
+}
 
 
 // === Command Thread ======================================================
@@ -59,15 +58,13 @@ static PT_THREAD (protothread_cmd(struct pt *pt))
 {
     PT_BEGIN(pt);
       while(1) {
-            tft_fillRoundRect(20,10, 200, 200, 1, ILI9340_BLACK);// x,y,w,h,radius,color
-            tft_setTextColor(ILI9340_YELLOW); 
-            tft_setTextSize(2);
+          
             // send the prompt via DMA to serial
             sprintf(PT_send_buffer,"cmd>");
             // by spawning a print thread
             PT_SPAWN(pt, &pt_DMA_output, PT_DMA_PutSerialBuffer(&pt_DMA_output) );
  
-        //spawn a thread to handle terminal input
+          //spawn a thread to handle terminal input
             // the input thread waits for input
             // -- BUT does NOT block other threads
             // string is returned in "PT_term_buffer"
@@ -77,84 +74,93 @@ static PT_THREAD (protothread_cmd(struct pt *pt))
             // now parse the string
              sscanf(PT_term_buffer, "%s %d", cmd, &value);
          
-             if (cmd[0]=='d' ) {
-                 //set mux to DSP chip
-                 mPORTAWrite(0x0000);
+             if (cmd[0]=='p' ) {
+                /*
+                 generate_period = value;
+                 // update the timer period
+                 WritePeriod2(generate_period);
+                 // update the pulse start/stop
+                 SetPulseOC2(generate_period>>2, generate_period>>1);
+                 */
+            }
+             
+             //if (cmd[0]=='d' ) {
+             //    pwm_on_time = value ;
+               //  SetDCOC3PWM(pwm_on_time);
+             //} //  
+             
+            /* if (cmd[0]=='t' ) {
+                 sprintf(PT_send_buffer,"%d ", sys_time_seconds);
+                // by spawning a print thread
+                PT_SPAWN(pt, &pt_DMA_output, PT_DMA_PutSerialBuffer(&pt_DMA_output) );
+             } //  */
+              if (cmd[0]=='d' ) {
+                //set mux to DSP chip
+                mPORTBClearBits(BIT_12 | BIT_13); 
+                mPORTBSetBits(BIT_12);
+                mPORTBClearBits(BIT_3 | BIT_7 | BIT_8 | BIT_9);
                  
-                 mPORTBClearBits(BIT_6 | BIT_7 | BIT_8 | BIT_9);
-                 //select sound effect
+                 if(((value << 6) & (0x0040))){
+                     mPORTBSetBits(BIT_3);
+                 }
+                     //select sound effect
                  mPORTBSetBits(value << 6);
                 /* 
                  //generate_period = value;
                  // update the timer period
                  //WritePeriod2(generate_period);
-                 // update the pulse start/stop
+                // update the pulse start/stop
                  //SetPulseOC2(generate_period>>2, generate_period>>1);
              
-                 */ 
-                tft_setCursor(20, 10);
-                sprintf(buffer,"DSP: %d", value);
-
+                 */ }
+             if (cmd[0] == 's'){ //distortion
+                 //set mux to Distortion
+                mPORTBClearBits(BIT_12 | BIT_13); 
+                mPORTBSetBits(BIT_13);
              }
-             if (cmd[0] == 'n'){
-                //set mux to Distortion
-                mPORTAWrite(0x0001);
-                tft_setCursor(20, 10);
-                sprintf(buffer,"Distortion: %d", value);
-
+             if (cmd[0] == 'n'){ //normal: only tone stack
+                 //set mux to channel 0
+                mPORTBClearBits(BIT_12 | BIT_13); 
              }
-             if (cmd[0] == 'g'){
-                //gain control
-                mPORTBClearBits(BIT_14 | BIT_15);
-                mPORTBSetBits(value <<14);
-                tft_setCursor(20, 20);
-                sprintf(buffer,"Gain: %d", value);
+             //pots
+             if (cmd[0] == 't'){ 
+                // CS low to start transaction
+                mPORTBClearBits(BIT_4); // start transaction
+                deliverSPICh1Datum(value);
+                // CS high
+                mPORTBSetBits(BIT_4); // end transaction
              }
-             if (cmd[0] == 't'){
-                //treble control
-                mPORTAWrite(0x0002);
-                tft_setCursor(20, 30);
-                sprintf(buffer,"Treble: %d", value);
-                 
-             }
-             if (cmd[0] == 'm'){
-                //mid control
-                mPORTAWrite(0x0003);
-                tft_setCursor(20, 40);
-                sprintf(buffer,"Mid: %d", value);
-             }
-             if(cmd[0] == 'b'){
-                //bass control
-                mPORTAWrite(0x0004);
-                tft_setCursor(20, 50);
-                sprintf(buffer,"Bass: %d", value);
-             }
+             if (cmd[0] == 'b'){ 
+                // CS low to start transaction
+                mPORTAClearBits(BIT_0); // start transaction
+                deliverSPICh1Datum(value);
+                // CS high
+                mPORTASetBits(BIT_0); // end transaction
+            }
+            if (cmd[0] == 'm'){ 
+                // CS low to start transaction
+                mPORTAClearBits(BIT_2); // start transaction
+                deliverSPICh1Datum(value);
+                // CS high
+                mPORTASetBits(BIT_2); // end transaction
+            }
+            if (cmd[0] == 'v'){ //gain/volume
+                // CS low to start transaction
+                mPORTAClearBits(BIT_3); // start transaction
+                deliverSPICh1Datum(value);
+                // CS high
+                mPORTASetBits(BIT_3); // end transaction
+            }
+            if (cmd[0] == 'l'){ //left/right 
+                // CS low to start transaction
+                mPORTAClearBits(BIT_4); // start transaction
+                deliverSPICh1Datum(value);
+                // CS high
+                mPORTASetBits(BIT_4); // end transaction
+            }
              
-             if(cmd[0] == 'l'){
-                //level control
-                mPORTAWrite(0x0005);
-                tft_setCursor(20, 60);
-                sprintf(buffer,"Level: %d", value);
-             }
-             if(cmd[0] == 'r'){
-                //left/right control
-                mPORTAWrite(0x0006);
-                tft_setCursor(20, 70);
-                sprintf(buffer,"Left/Right: %d", value);
-             }
              
-             tft_writeString(buffer);
-             /*if (cmd[0]=='d' ) {
-                 pwm_on_time = value ;
-                 SetDCOC3PWM(pwm_on_time);
-             } //  
-             
-             if (cmd[0]=='t' ) {
-                 sprintf(PT_send_buffer,"%d ", sys_time_seconds);
-                // by spawning a print thread
-                PT_SPAWN(pt, &pt_DMA_output, PT_DMA_PutSerialBuffer(&pt_DMA_output) );
-             } //  
-            // never exit while*/
+            // never exit while
       } // END WHILE(1)
   PT_END(pt);
 } // thread 3
@@ -175,10 +181,24 @@ static PT_THREAD (protothread_time(struct pt *pt))
   PT_END(pt);
 } // thread 4
 
+void deliverSPICh1Datum(int datum){
+    // CS low to start transaction
+    // mPORTBClearBits(BIT_4); // start transaction
+    // test for ready
+     while (TxBufFullSPI1());
+     // write to spi2
+     WriteSPI1(DAC_config_chan_A | datum);
+    // test for done
+    while (SPI1STATbits.SPIBUSY); // wait for end of transaction
+     // CS high
+    // mPORTBSetBits(BIT_4); // end transaction
+}
+
 // === Main  ======================================================
 
 int main(void)
 {
+/*    
   // === Config timer and output compares to make pulses ========
   // set up timer2 to generate the wave period
   OpenTimer2(T2_ON | T2_SOURCE_INT | T2_PS_1_1, generate_period);
@@ -188,40 +208,45 @@ int main(void)
   // set up compare3 for PWM mode
   OpenOC3(OC_ON | OC_TIMER2_SRC | OC_PWM_FAULT_PIN_DISABLE , pwm_on_time, pwm_on_time); //
   // OC3 is PPS group 4, map to RPB9 (pin 18)
-  PPSOutput(4, RPB9, OC3);
+  //PPSOutput(4, RPB9, OC3);
 
   // set pulse to go high at 1/4 of the timer period and drop again at 1/2 the timer period
   OpenOC2(OC_ON | OC_TIMER2_SRC | OC_CONTINUE_PULSE, generate_period>>1, generate_period>>2);
   // OC2 is PPS group 2, map to RPB5 (pin 14)
   PPSOutput(2, RPB5, OC2);
-
+*/
   // === config the uart, DMA, vref, timer5 ISR ===========
   PT_setup();
 
+  // == SPI ==
+  SpiChnOpen(spiChn, SPI_OPEN_ON | SPI_OPEN_MODE16 | SPI_OPEN_MSTEN | SPI_OPEN_CKE_REV , spiClkDiv);
+  
   // === setup system wide interrupts  ====================
   INTEnableSystemMultiVectoredInt();
     
   // === set up i/o port pin ===============================
-  mPORTBSetPinsDigitalOut(BIT_0 );    //Set port as output
-  mPORTBSetPinsDigitalOut(BIT_15 | BIT_14 | BIT_9 | BIT_8 | BIT_7 | BIT_6);
-  mPORTASetPinsDigitalOut(BIT_0 | BIT_1 | BIT_2);
+  mPORTBSetPinsDigitalOut(BIT_0 | BIT_4 | BIT_3| BIT_6 | BIT_7 | BIT_8 | BIT_9 |  BIT_12 | BIT_13);    //Set port as output
+ 
+  mPORTASetPinsDigitalOut(BIT_0 | BIT_2 | BIT_3 | BIT_4);
   // === now the threads ===================================
   
   // init the threads
   PT_INIT(&pt_cmd);
   PT_INIT(&pt_time);
-
-  // init the display
-  tft_init_hw();
-  tft_begin();
-  tft_fillScreen(ILI9340_BLACK);
-  //240x320 vertical display
-  tft_setRotation(0); // Use tft_setRotation(1) for 320x240
-  tft_fillRoundRect(0,10, 100, 14, 1, ILI9340_BLACK);// x,y,w,h,radius,color
-  tft_setCursor(0, 10);
-  tft_setTextColor(ILI9340_YELLOW); tft_setTextSize(2);
-
   
+  //==Digipot spi stuff
+   // SCK2 is pin 26 
+    // SDO1 (MOSI) is in PPS output group 1, could be connected to RB5 which is pin 14
+    PPSOutput(2, RPB5, SDO1);
+    // control CS for DAC
+    //mPORTBSetPinsDigitalOut(BIT_4); //CS
+    mPORTBSetBits(BIT_4 | BIT_6);
+    //===
+    
+    mPORTASetBits(BIT_0 | BIT_2 | BIT_3 | BIT_4); //CS pins active high
+    mPORTBClearBits(BIT_10 | BIT_12);
+    
+    
   // schedule the threads
   while(1) {
     PT_SCHEDULE(protothread_cmd(&pt_cmd));
