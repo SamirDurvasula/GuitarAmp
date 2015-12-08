@@ -49,25 +49,26 @@
 										<p>Justin Selig <br/>Samir Durvasula <br/>Adarsh Jayakumar <br/>
 										</p>
 									</header>
-									<p>As part of our final project for ECE 4760: Digital Systems Design Using Microcontrollers, we built a guitar amplifier with remote distortion and digital effects capabilities controlled from a smartphone via bluetooth. Why we built it???</p>
+									<p>As part of our final project for ECE 4760: Digital Systems Design Using Microcontrollers, we built a guitar amplifier with remote distortion and digital effects capabilities controlled from a smartphone via bluetooth. <br/><br/>Musicians often need to modify the configuration of their amplifiers when performing in concerts. This job is generally delegated to "rodeys" who walk on-stage between sets to make adjustments. By building on top of generic amplifier <a href="#three">circuitry</a> we've been able to increase the capabilities of the standard guitar amp to allow remote control over all aspects of the amplifier's sound.</p>
 								</div>
 							</section>
 
 						<!-- Two: High Level Design -->
 							<section id="two">
 								<div class="container">
-									<h3>Things I Can Do</h3>
-									<p>Integer eu ante ornare amet commetus vestibulum blandit integer in curae ac faucibus integer non. Adipiscing cubilia elementum integer lorem ipsum dolor sit amet.</p>
+									<h3>High-Level Design</h3>
+									<h5>Things I Can Do</h5>
 									<ul class="feature-icons">
 										<li class="fa-wifi">Interface via bluetooth with smartphone</li>
 										<li class="fa-cubes">Perform <a>Digital Effects</a></li>
-										<li class="fa-book">Modify bass, treble, and mid</li>
+										<li class="fa-book">Modify bass, treble, and mid with physical knobs</li>
+										<li class="fa-book">Modify bass, treble, and mid digitally</li>
 										
 									</ul>
 										
-										<h5>Left &amp; Right</h5>
-										<p><span class="image left"><img src="images/avatar.jpg" alt="" /></span>Fringilla nisl. Donec accumsan interdum nisi, quis tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent. Donec accumsan interdum nisi, quis tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent.</p>
-										<p><span class="image right"><img src="images/avatar.jpg" alt="" /></span>Fringilla nisl. Donec accumsan interdum nisi, quis tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent. Donec accumsan interdum nisi, quis tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent.</p>
+										<h5>Details</h5>
+									<p><span class="image left"><img src="images/HardwareBlockDiagram.png" width=400px alt="" /></span>There will be two styles of interfacing with the amplifier. The first style will resemble a classic guitar amplifier, where the user will control the effects via knobs connected to analog potentiometers. The switches present within the analog circuit will be used to determine which mode or combination of modes the amplifier should operate in. As is standard, the input of the amplifier will be from a ¼” TS Male Auxiliary cord attached to an electric or acoustic guitar. We will have a ¼” TS female to 3.5 mm TRS male adaptor. This in turn will connect to a 3.5 mm adaptor which will wire directly into our circuit.<br/>The second style of interfacing with the amplifier will utilize the PIC microcontroller to control and apply digital effects. These sound effects are outputs of a Belton BTSE-16 chip, which, through onboard DSP, synthesize these various effects. These effects include chorus, flanger, phaser, tremolo, delay, reverb, and various combinations thereof. </p>
+									<p><span class="image right"><img src="images/avatar.jpg" alt="" /></span>As part of our ‘stretch goal’, the primary standard that we would need to conform to is determined by the Bluetooth Special Interest Group (SIG). The standard for Bluetooth that we will be following is set by IEEE 802.15.1. The standard essentially sets the MAC addresses available for our use as well as limits our applications to the 2.4-2.485 GHz ISM band. </p>
 								</div>
 						</section>
 									
@@ -78,21 +79,21 @@
 									<p>A large portion of the project was devoted to building and testing standard analog circuitry for generating our desired effects. The schematics for these are included below.</p>
 									<div class="features">
 										<article>
-											<a href="#" class="image"><img src="images/distortion.jpg" alt="" /></a>
+											<a href="http://www.instructables.com/id/Very-simple-and-cheap-GuitarBass-distortion-pedal/" class="image"><img src="images/distortion.jpg" alt="" /></a>
 											<div class="inner">
 												<h4>Distortion</h4>
 												<p>Integer eu ante ornare amet commetus vestibulum blandit integer in curae ac faucibus integer adipiscing ornare amet.</p>
 											</div>
 										</article>
 										<article>
-											<a href="#" class="image"><img src="images/tonestack.png" alt="" /></a>
+											<a href="http://www.runoffgroove.com/tonemender.html" class="image"><img src="images/tonestack.png" alt="" /></a>
 											<div class="inner">
 												<h4>Tone Stack</h4>
 												<p>Integer eu ante ornare amet commetus vestibulum blandit integer in curae ac faucibus integer adipiscing ornare amet.</p>
 											</div>
 										</article>
 										<article>
-											<a href="#" class="image"><img src="images/classdamp.png" alt="" /></a>
+											<a href="http://www.ti.com/lit/ds/symlink/tpa3122d2.pdf" class="image"><img src="images/classdamp.png" alt="" /></a>
 											<div class="inner">
 												<h4>Class-D Amplifier</h4>
 												<p>Integer eu ante ornare amet commetus vestibulum blandit integer in curae ac faucibus integer adipiscing ornare amet.</p>
@@ -105,23 +106,23 @@
 									<p>An even greater portion of the project was dedicated to digital design and microcontroller programming...</p>
 									<div class="features">
 										<article>
-											<a href="#" class="image"><img src="images/BTSE16FX_01.gif" alt="" /></a>
+											<a href="http://www.accutronicsreverb.com/main/?skin=sub01_07.html" class="image"><img src="images/BTSE-16FX_img.jpg" alt="" /></a>
 											<div class="inner">
 												<h4>Digital Effects Chip</h4>
 												<p>Integer eu ante ornare amet commetus vestibulum blandit integer in curae ac faucibus integer adipiscing ornare amet.</p>
 											</div>
 										</article>
 										<article>
-											<a href="#" class="image"><img src="images/pic02.jpg" alt="" /></a>
+											<a href="http://www.gearbest.com/other-accessories/pp_227678.html" class="image"><img src="images/hc05.jpg" alt="" /></a>
 											<div class="inner">
-												<h4>Terraformed a small moon</h4>
+												<h4>HC-05 Bluetooth Module</h4>
 												<p>Integer eu ante ornare amet commetus vestibulum blandit integer in curae ac faucibus integer adipiscing ornare amet.</p>
 											</div>
 										</article>
 										<article>
-											<a href="#" class="image"><img src="images/pic03.jpg" alt="" /></a>
+											<a href="http://www.microchip.com/wwwproducts/Devices.aspx?product=PIC32MX250F128B" class="image"><img src="images/pic32.png" alt="" /></a>
 											<div class="inner">
-												<h4>Snapped dark matter in the wild</h4>
+												<h4>Pic32 Microcontroller</h4>
 												<p>Integer eu ante ornare amet commetus vestibulum blandit integer in curae ac faucibus integer adipiscing ornare amet.</p>
 											</div>
 										</article>
