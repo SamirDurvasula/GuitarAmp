@@ -14,25 +14,23 @@
 			<section id="header">
 				<header>
 					<span class="image avatar"><img src="images/avatar.jpg" alt="" /></span>
-					<h1 id="logo"><a href="#">Willis Corto</a></h1>
-					<p>I got reprogrammed by a rogue AI<br />
-					and now I'm totally cray</p>
+					<h1 id="logo">FX Guitar Amp</h1>
+					<p>We had a guitar but no amp...<br />
+					so we decided to make one.</p>
 				</header>
 				<nav id="nav">
 					<ul>
-						<li><a href="#one" class="active">About</a></li>
-						<li><a href="#two">Things I Can Do</a></li>
-						<li><a href="#three">A Few Accomplishments</a></li>
-						<li><a href="#four">Contact</a></li>
+						<li><a href="#two">High-level Design</a></li>
+						<li><a href="#three">Hardware/Program Details</a></li>
+						<li><a href="#four">Results</a></li>
+						<li><a href="#five">Conclusions</a></li>
+						<li><a href="#six">Appendix</a></li>
 					</ul>
 				</nav>
 				<footer>
 					<ul class="icons">
-						<li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
-						<li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
-						<li><a href="#" class="icon fa-instagram"><span class="label">Instagram</span></a></li>
-						<li><a href="#" class="icon fa-github"><span class="label">Github</span></a></li>
-						<li><a href="#" class="icon fa-envelope"><span class="label">Email</span></a></li>
+						<li><a href="https://github.com/JustinSelig" class="icon fa-github"><span class="label">Github</span></a></li>
+						<li><a href="mailto:jss459@cornell.edu?Subject=ECE 4760%20Guitar%20Amp" class="icon fa-envelope"><span class="label">Email</span></a></li>
 					</ul>
 				</footer>
 			</section>
@@ -42,8 +40,8 @@
 
 				<!-- Main -->
 					<div id="main">
-
-						<!-- One -->
+						
+						<!-- One: Overview -->
 							<section id="one">
 								<div class="container">
 									<header class="major">
@@ -51,11 +49,11 @@
 										<p>Justin Selig <br/>Samir Durvasula <br/>Adarsh Jayakumar <br/>
 										</p>
 									</header>
-									<p>Short Blurb: Faucibus sed lobortis aliquam lorem blandit. Lorem eu nunc metus col. Commodo id in arcu ante lorem ipsum sed accumsan erat praesent faucibus commodo ac mi lacus. Adipiscing mi ac commodo. Vis aliquet tortor ultricies non ante erat nunc integer eu ante ornare amet commetus vestibulum blandit integer in curae ac faucibus integer non. Adipiscing cubilia elementum.</p>
+									<p>As part of our final project for ECE 4760: Digital Systems Design Using Microcontrollers, we built a guitar amplifier with remote distortion and digital effects capabilities controlled from a smartphone via bluetooth. Why we built it???</p>
 								</div>
 							</section>
 
-						<!-- Two -->
+						<!-- Two: High Level Design -->
 							<section id="two">
 								<div class="container">
 									<h3>Things I Can Do</h3>
@@ -66,19 +64,50 @@
 										<li class="fa-book">Modify bass, treble, and mid</li>
 										
 									</ul>
+										
+										<h5>Left &amp; Right</h5>
+										<p><span class="image left"><img src="images/avatar.jpg" alt="" /></span>Fringilla nisl. Donec accumsan interdum nisi, quis tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent. Donec accumsan interdum nisi, quis tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent.</p>
+										<p><span class="image right"><img src="images/avatar.jpg" alt="" /></span>Fringilla nisl. Donec accumsan interdum nisi, quis tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent. Donec accumsan interdum nisi, quis tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent.</p>
 								</div>
-							</section>
-
-						<!-- Three -->
-							<section id="three">
-								<div class="container">
-									<h3>A Few Accomplishments</h3>
-									<p>Integer eu ante ornare amet commetus vestibulum blandit integer in curae ac faucibus integer non. Adipiscing cubilia elementum integer. Integer eu ante ornare amet commetus.</p>
+						</section>
+									
+						<!-- Three: Detailed Design -->
+						<section id="three">
+							<div class="container">
+									<h3>Analog Circuitry</h3>
+									<p>A large portion of the project was devoted to building and testing standard analog circuitry for generating our desired effects. The schematics for these are included below.</p>
 									<div class="features">
 										<article>
-											<a href="#" class="image"><img src="images/pic01.jpg" alt="" /></a>
+											<a href="#" class="image"><img src="images/distortion.jpg" alt="" /></a>
 											<div class="inner">
-												<h4>Possibly broke spacetime</h4>
+												<h4>Distortion</h4>
+												<p>Integer eu ante ornare amet commetus vestibulum blandit integer in curae ac faucibus integer adipiscing ornare amet.</p>
+											</div>
+										</article>
+										<article>
+											<a href="#" class="image"><img src="images/tonestack.png" alt="" /></a>
+											<div class="inner">
+												<h4>Tone Stack</h4>
+												<p>Integer eu ante ornare amet commetus vestibulum blandit integer in curae ac faucibus integer adipiscing ornare amet.</p>
+											</div>
+										</article>
+										<article>
+											<a href="#" class="image"><img src="images/classdamp.png" alt="" /></a>
+											<div class="inner">
+												<h4>Class-D Amplifier</h4>
+												<p>Integer eu ante ornare amet commetus vestibulum blandit integer in curae ac faucibus integer adipiscing ornare amet.</p>
+											</div>
+										</article>
+									</div>
+								</div>
+								<div class="container">
+									<h3>Digital Circuitry and Microcontroller Integration</h3>
+									<p>An even greater portion of the project was dedicated to digital design and microcontroller programming...</p>
+									<div class="features">
+										<article>
+											<a href="#" class="image"><img src="images/BTSE16FX_01.gif" alt="" /></a>
+											<div class="inner">
+												<h4>Digital Effects Chip</h4>
 												<p>Integer eu ante ornare amet commetus vestibulum blandit integer in curae ac faucibus integer adipiscing ornare amet.</p>
 											</div>
 										</article>
