@@ -73,7 +73,7 @@ static PT_THREAD (protothread_cmd(struct pt *pt))
             // in this case, when <enter> is pushed
             // now parse the string
              sscanf(PT_term_buffer, "%s %d", cmd, &value);
-         
+          
              if (cmd[0]=='p' ) {
                 /*
                  generate_period = value;
