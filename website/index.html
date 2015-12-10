@@ -28,10 +28,10 @@
 					</ul>
 				</nav>
 				<footer>
-					<ul class="icons">
+					<!--ul class="icons">
 						<li><a href="https://github.com/JustinSelig/BluetoothGuitarAmp" class="icon fa-github"><span class="label">Github</span></a></li>
 						<li><a href="mailto:jss459@cornell.edu?Subject=ECE 4760%20Guitar%20Amp" class="icon fa-envelope"><span class="label">Email</span></a></li>
-					</ul>
+					</ul-->
 				</footer>
 			</section>
 
@@ -107,56 +107,72 @@
 									<p>An even greater portion of the project was dedicated to digital design and microcontroller programming...</p>
 									<div class="features">
 										<article>
-											<a href="http://www.accutronicsreverb.com/main/?skin=sub01_07.html" class="image"><img src="images/BTSE-16FX_img.jpg" alt="" /><img src="images/BTSE16FX_01.gif" /><img src="images/digital_effects_list.png"/></a>
+											<a href="http://www.accutronicsreverb.com/main/?skin=sub01_07.html" class="image">
+												<img src="images/BTSE-16FX_img.jpg" alt="" />Digital Sound Effector Chip
+												<img src="images/BTSE16FX_01.gif" />Wiring Schematic
+												<img src="images/digital_effects_list.png"/>16 Digital Effects Control With 4-Bit Signal
+											</a>
 											<div class="inner">
 												<h4>Digital Effects Chip</h4>
-												<p>Integer eu ante ornare amet commetus vestibulum blandit integer in curae ac faucibus integer adipiscing ornare amet.</p>
+												<p>The BTSE-16FX effect board provides 16 different digital audio effects when integrated into the amp. On the highest level, the chip takes in an input signal (sound wave), a 4-bit binary select signal, and outputs an affected signal. The schematic shown to the left demonstrates one way to set up the chip which involves stepping down a voltage to power the chip, filtering an input signal, and filtering the output signal. We modified this schematic by replacing the input voltage circuit with a simple 5-volt power supply, replacing the input filtering with a simple high-pass filter, and removing the output circuit entirely by operating directly on the output of the chip.<br/><br/>The 4-bit binary select signal for choosing an effect was generated directly off the Pic32. A user would make a choice for effect via his or her smartphone, and the resulting bluetooth signal is read via uart and translated to a 4-bit logic output.</p>
 											</div>
 										</article>
 										<article>
 											<a href="http://www.gearbest.com/other-accessories/pp_227678.html" class="image"><img src="images/hc05.jpg" alt="" /></a>
 											<div class="inner">
 												<h4>HC-05 Bluetooth Module</h4>
-												<p>Integer eu ante ornare amet commetus vestibulum blandit integer in curae ac faucibus integer adipiscing ornare amet.</p>
+												<p>The HC-05 bluetooth module handles almost all responsibilities associated with establishing a bluetooth connection with any other bluetooth-enabled device. The HC-05 communicates over UART with the Pic which both transmits and received data. The chip works by publishing a bluetooth service and allowing another client - the smartphone - to pair with the module. Through the use of a bluetooth terminal on a smartphone (eg. blu-term) one can send data and test the uart connection with the Pic. </p>
 											</div>
 										</article>
 										<article>
 											<a href="http://www.microchip.com/wwwproducts/Devices.aspx?product=PIC32MX250F128B" class="image"><img src="images/pic32.png" alt="" /></a>
 											<div class="inner">
 												<h4>Pic32 Microcontroller</h4>
-												<p>Integer eu ante ornare amet commetus vestibulum blandit integer in curae ac faucibus integer adipiscing ornare amet.</p>
+												<p>The Pic32 is a class of 32-bit microcontrollers. </p>
 											</div>
 										</article>
 									</div>
+									<div>
+										
+									<h3>Code Details</h3>
+									Talk about code here.
+									</div>
+									
 								</div>
 							</section>
-
+						
 						<!-- Four -->
 							<section id="four">
 								<div class="container">
 										<h3>Results</h3>
-										<h5>Fit</h5>
-										<span class="image fit"><img src="images/banner.jpg" alt="" /></span>
-										<div class="box alt">
-											<div class="row 50% uniform">
-												<div class="4u"><span class="image fit"><img src="images/pic01.jpg" alt="" /></span></div>
-												<div class="4u"><span class="image fit"><img src="images/pic02.jpg" alt="" /></span></div>
-												<div class="4u"><span class="image fit"><img src="images/pic03.jpg" alt="" /></span></div>
-											</div>
-											<div class="row 50% uniform">
-												<div class="4u"><span class="image fit"><img src="images/pic02.jpg" alt="" /></span></div>
-												<div class="4u"><span class="image fit"><img src="images/pic03.jpg" alt="" /></span></div>
-												<div class="4u"><span class="image fit"><img src="images/pic01.jpg" alt="" /></span></div>
-											</div>
-											<div class="row 50% uniform">
-												<div class="4u"><span class="image fit"><img src="images/pic03.jpg" alt="" /></span></div>
-												<div class="4u"><span class="image fit"><img src="images/pic01.jpg" alt="" /></span></div>
-												<div class="4u"><span class="image fit"><img src="images/pic02.jpg" alt="" /></span></div>
-											</div>
-										</div>
 										<h5>Left &amp; Right</h5>
-										<p><span class="image left"><img src="images/avatar.jpg" alt="" /></span>Fringilla nisl. Donec accumsan interdum nisi, quis tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent. Donec accumsan interdum nisi, quis tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent.</p>
-										<p><span class="image right"><img src="images/avatar.jpg" alt="" /></span>Fringilla nisl. Donec accumsan interdum nisi, quis tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent. Donec accumsan interdum nisi, quis tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent.</p>
+										<p><span class="image left"><img src="images/OverallSchematic.png" width=400px alt="" /></span>Fringilla nisl. Donec accumsan interdum nisi, quis tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent. Donec accumsan interdum nisi, quis tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent.</p>
+									<p><span class="image right"><img src="images/InitialState.jpg" width=400px alt="" /></span>Fringilla nisl. Donec accumsan interdum nisi, quis tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent. Donec accumsan interdum nisi, quis tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent.</p>
+									
+									<h4>Gallery</h4>
+									<span class="image fit"><img src="images/banner2.png" alt="" /></span>
+									<div class="box alt">
+										<div class="row 50% uniform">
+											<div class="4u"><span class="image fit"><img src="images/screen_cap/IMG_0279.jpg" alt="" /></span></div>
+											<div class="4u"><span class="image fit"><img src="images/screen_cap/IMG_0281.jpg" alt="" /></span></div>
+											<div class="4u"><span class="image fit"><img src="images/screen_cap/IMG_0282.jpg" alt="" /></span></div>
+										</div>
+										<div class="row 50% uniform">
+											<div class="4u"><span class="image fit"><img src="images/screen_cap/high_bass.png" alt="" /></span></div>
+											<div class="4u"><span class="image fit"><img src="images/screen_cap/high_level.png" alt="" /></span></div>
+											<div class="4u"><span class="image fit"><img src="images/screen_cap/high_treble.png" alt="" /></span></div>
+										</div>
+										<div class="row 50% uniform">
+											<div class="4u"><span class="image fit"><img src="images/screen_cap/mid_high.png" alt="" /></span></div>
+											<div class="4u"><span class="image fit"><img src="images/screen_cap/mid_level.png" alt="" /></span></div>
+											<div class="4u"><span class="image fit"><img src="images/screen_cap/mid_mid.png" alt="" /></span></div>
+										</div>
+										<div class="row 50% uniform">
+											<div class="4u"><span class="image fit"><img src="images/screen_cap/no_bass.png" alt="" /></span></div>
+											<div class="4u"><span class="image fit"><img src="images/screen_cap/no_level.png" alt="" /></span></div>
+											<div class="4u"><span class="image fit"><img src="images/screen_cap/no_treble.png" alt="" /></span></div>
+										</div>
+									</div>
 									</section>
 								</div>
 							</section>
@@ -182,40 +198,58 @@
 												</thead>
 												<tbody>
 													<tr>
-														<td>HC05 Wireless Transceiver Module</td>
-														<td>This module was part of our ‘stretch goal’ to add bluetooth connectivity.</td>
-														<td>http://www.gearbest.com/other-accessories/pp_227678.html</td>
-														<td>$4.35</td>
-													</tr>
-													<tr>
 														<td>BTSE-16FX DSP Module</td>
 														<td>This module provides 16 digital audio effects for our amplifier.</td>
-														<td>https://www.tubesandmore.com/products/P-RKBTSE-16FX</td>
+														<td>https://www.tubesandmore.com/products/P-<br>RKBTSE-16FX</td>
 														<td>$29.95</td>
 													</tr>
 													<tr>
 														<td>Jensen MOD5-30 5” Guitar Speaker </td>
 														<td>Speakers to amplify our sound</td>
-														<td>http://www.amazon.com/Jensen-MOD5-30-Watt-Guitar-Speaker/dp/B00346WOTC</td>
+														<td>http://www.amazon.com/Jensen-MOD5-30-Watt-<br>Guitar-Speaker/dp/B00346WOTC</td>
 														<td>$29.50</td>
 													</tr>
 													<tr>
 														<td>TI TPA3122D2 Class-D Amplifier chip</td>
 														<td>Class-D Power Amplifier for speaker.</td>
-														<td>https://octopart.com/tpa3122d2n-texas%2Binstruments-11912477</td>
+														<td>https://octopart.com/tpa3122d2n-texas%2B<br>instruments-11912477</td>
 														<td>$2.53</td>
 													</tr>
 													<tr>
 														<td>3 100kOhm Digital Potentiometers</td>
 														<td>Digital control over resistance in tonestack circuit.</td>
-														<td>https://www.sparkfun.com/products/10613</td>
-														<td>$7.50</td>
+														<td>http://www.digikey.com/product-detail/en/MCP4131<br>-104E%2FP/MCP4131-104E%2FP-ND/1874342</td>
+														<td>$.67 (x3)</td>
+													</tr>
+													<tr>
+														<td>HC0-5 Wireless Transceiver Module</td>
+														<td>This module was part of our ‘stretch goal’ to add bluetooth connectivity.</td>
+														<td>http://www.ebay.com/itm/like/351558451893?ul<br>_noapp=true&chn=ps&lpid=82</td>
+														<td>$3.76</td>
+													</tr>
+													<tr>
+														<td>Microstick II</td>
+														<td>For programming and temporarily mounting the Pic32.</td>
+														<td>http://www.microchip.com/Developmenttools/<br>ProductDetails.aspx?PartNO=DM330013-2</td>
+														<td>$10 Rental</td>
+													</tr>
+													<tr>
+														<td>Breadboard</td>
+														<td>Temporary mounting of circuit components.</td>
+														<td>N/A Rental</td>
+														<td>$6 (x2)</td>
+													</tr>
+													<tr>
+														<td>Protoboard</td>
+														<td>Permanent mounting of circuit components.</td>
+														<td>N/A</td>
+														<td>$2.50 (x2)</td>
 													</tr>
 												</tbody>
 												<tfoot>
 													<tr>
 														<td colspan="3"></td>
-														<td>$73.83</td>
+														<td>$94.75</td>
 													</tr>
 												</tfoot>
 											</table>
@@ -235,7 +269,6 @@
 								<h3>Appendix</h3>
 								<ul class="actions">
 									<li><a href="code.html"><input type="submit" class="special" value="Code"></a></li>
-									<li><input type="submit" class="special" value="Full Schematic"></li>
 								</ul>
 							</div>
 						</section>

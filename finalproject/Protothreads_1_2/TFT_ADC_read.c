@@ -1,12 +1,3 @@
-/**
- * This is a very small example that shows how to use
- * === OUTPUT COMPARE  ===
-/*
- * File:        PWM example
- * Author:      Bruce Land
- * Target PIC:  PIC32MX250F128B
- */
-
 ////////////////////////////////////
 // clock AND protoThreads configure!
 // You MUST check this file!
