@@ -134,8 +134,20 @@
 									</div>
 									<div>
 										
-									<h3>Code Details</h3>
-									Talk about code here.
+										<h3><a href="code.html">Code Details</a></h3>
+									<h4>Main Method</h4>
+									<p>In our main method, we follow typical procedure in first initializing protothreads, enabling interrupts, declaring input and output pins, opening SPI channel 1 for the digipots, setting initial values for SPI CS pins, and then scheduling the main thread.</p>
+										<h4>Command Thread</h4>
+										<p>The command thread begins by spawning a thread which waits for input through a serial command-line interface. By pairing the HC-05 chip with a smartphone running a terminal interface, the PIC is able to send data and receive input commands from a user. In put is entered and received in the form of a key, value pair. Following a data entry, the command is examined and particular tasks are performed depending on the data received. The following explains the various command a user may input: <br> 
+										<ul>
+										<li>Key: 'd' --> Value: Number which translates to 4-bit binary input to DFX chip</li>
+											<li>Key: 's' --> Value: </li>
+											<li>Key: 'n' --> Value: </li>
+											<li>Key: 't' --> Value: </li>
+											<li>Key: 'b' --> Value: </li>
+											<li>Key: 'v' --> Value: </li>
+											<li>Key: 'm' --> Value: </li>
+										</ul></p>
 									</div>
 									
 								</div>
