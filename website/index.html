@@ -136,17 +136,24 @@
 										
 										<h3><a href="code.html">Code Details</a></h3>
 									<h4>Main Method</h4>
-									<p>In our main method, we follow typical procedure in first initializing protothreads, enabling interrupts, declaring input and output pins, opening SPI channel 1 for the digipots, setting initial values for SPI CS pins, and then scheduling the main thread.</p>
+									<p>In our main method, we follow typical procedure in first initializing protothreads, enabling interrupts, declaring input and output pins, opening SPI channel 1 for the digipots, setting initial values for SPI CS pins, and then scheduling the main thread. Pin mappings were as follows:
+									<ul>
+										<li>RA0, RA2, RA3, RB4 --> Digipot Clock Select (CS) pins</li>
+										<li>RB3, RB7, RB8, RB9 --> DFX Chip Binary Select Signal</li>
+										<li>RB5 --> Digipots SDO (MOSI) Pin</li>
+										<li>RB14 --> Digipots SCK</li></li>
+										<li>RA4, RB13 --> Output Multiplexer Select Signal</li>
+									</ul></p>
 										<h4>Command Thread</h4>
 										<p>The command thread begins by spawning a thread which waits for input through a serial command-line interface. By pairing the HC-05 chip with a smartphone running a terminal interface, the PIC is able to send data and receive input commands from a user. In put is entered and received in the form of a key, value pair. Following a data entry, the command is examined and particular tasks are performed depending on the data received. The following explains the various command a user may input: <br> 
 										<ul>
-										<li>Key: 'd' --> Value: Number which translates to 4-bit binary input to DFX chip</li>
-											<li>Key: 's' --> Value: </li>
-											<li>Key: 'n' --> Value: </li>
-											<li>Key: 't' --> Value: </li>
-											<li>Key: 'b' --> Value: </li>
-											<li>Key: 'v' --> Value: </li>
-											<li>Key: 'm' --> Value: </li>
+											<li>Key: 'd' --> Value: Number which translates to 4-bit binary input to DFX chip. Also sets output mux to DFX chip.</li>
+											<li>Key: 's' --> Sets output mux to distortion.</li>
+											<li>Key: 'n' --> Sets output mux to normal (signal through tonestack only).</li>
+											<li>Key: 't' --> Value: Send value via SPI to digipot controlling treble.</li>
+											<li>Key: 'b' --> Value: Send value via SPI to digipit controlling bass.</li>
+											<li>Key: 'v' --> Value: Send value via SPI to digipot controlling level.</li>
+											<li>Key: 'm' --> Value: Send value via SPI to digipot controlling mid.</li>
 										</ul></p>
 									</div>
 									
@@ -290,7 +297,13 @@
 						<section id="six">
 							<div class="container">
 								<h3>Conclusions</h3>
-								<p> There are a few key improvements that we aim to make to our guitar amplifier in the future. First of all, we aim to replace our 250 kilaohm bass and treble potentiometers with 500 kilaohm potentiometers within our analog tonestack. This should allow for more significant effects by changing our cutoff frequency range as well as prevent any possible clipping at our output. Secondly, we aim to rewire our 100 kilaohm digital potentiometers in parallel with our analog potentiometers to achieve our digital/analog switch capabilities. </p>
+								<p> There are a few key improvements that we aim to make to our guitar amplifier in the future. First of all, we aim to replace our 250 k-ohm bass and treble potentiometers with 500 k-ohm potentiometers within our analog tonestack. This should allow for more significant effects by changing our cutoff frequency range as well as prevent any possible clipping at our output. Secondly, we aim to rewire our 100 kilaohm digital potentiometers in parallel with our analog potentiometers to achieve our digital/analog switch capabilities. Other portions of our design that could be improved include the overall integration of the circuitry as well as the aesthetic presentation of the final prototype. Moving forward, we hope to fabricate a PCB with streamlined connections that will both ensure quality and miniaturize the size of the amp. Additionally we hope to house the amp in a wooden case that will protect and improve the quality of the overall product.</p>
+								<h4>Standards</h4>
+								<p>Our design conformed to all relevant IEEE standards. This was this case since most of the complex signal processing was performed by industry-standard chips and externally integrated circuits. For instance, the HC-05 chip conforms to all standards set out by the IEEE Bluetooth Special Interest Group (SIG). Not to mention, the BTSE-16FX DSP chip is a standard module included in many digital guitar amplifiers and conforms to IEEE standards.</p>
+								<h4>Intellectual Property Considerations</h4>
+								<p>As for intellectual property considerations, all source code was produced by members of our group. All external packages such as protothreads were used with permission of the instructor. Similarly all analog circuit designs and external modules (Digital Sound Effector, Bluetooth chips) were adapted from open-sourced, publicly available schematics and therefore required no legal agreements be made with original authors. As a result, our designs could potentially be patented with few to no Intellectual Property conflicts. As we have open-sourced our designs, our work may also be published in any magazine or journal.</p>
+								<h4>Ethical Considerations</h4>
+								<p>Our project was executed with close attention paid to the IEEE Code of Ethics. During our planning, design, and execution phases, we held ourselves to high ethical standards which included working to not only ensure our project met all quality technical standards, but also holding ourselves to a professional working standard. We made sure to constantly interface with other students, TAs and Teaching Assistants with a respectable level of maturity and made an immense effort to work out all technical problems that arose internally within our group.</p>
 							</div>		
 						</section>
 
