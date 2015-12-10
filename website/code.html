@@ -1,0 +1,206 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>ECE 4760: Bluetooth-Controlled Guitar Amp</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+	</head>
+	<body>
+		<h1 id="logo">Fully-Commented Main Code Module</h1>
+
+<style>
+body {color: #000000; background-color: #ffffff; font-family: Monospaced}
+pre {color: #000000; background-color: #ffffff; font-family: Monospaced}
+table {color: #000000; background-color: #e9e8e2; font-family: Monospaced}
+.comment {color: #969696}
+.ST0 {color: #969696; background-color: #e9eff8}
+.ST1 {color: #ce7b00; font-family: Monospaced; font-weight: bold}
+.preprocessor-system-include-literal {color: #ce7b00}
+.keyword-directive {color: #0000e6}
+.preprocessor-keyword-directive {color: #009b00}
+.pragma-omp-keyword-directive {color: #2e92c7}
+</style>
+
+
+<body>
+
+	<pre>
+  1 <span class="ST0">///</span><span class="ST0">/////////////////////////////////</span>
+  2 <span class="comment">//</span> <span class="comment">clock</span> <span class="comment">AND</span> <span class="comment">protoThreads</span> <span class="comment">configure</span><span class="comment">!</span>
+  3 <span class="comment">//</span> <span class="comment">You</span> <span class="comment">MUST</span> <span class="comment">check</span> <span class="comment">this</span> <span class="comment">file</span><span class="comment">!</span>
+  4 <span class="preprocessor-keyword-directive">#</span><span class="preprocessor-keyword-directive">include</span> <span class="preprocessor-system-include-literal">&quot;config.h&quot;</span>
+  5 <span class="comment">//</span> <span class="comment">threading</span> <span class="comment">library</span>
+  6 <span class="preprocessor-keyword-directive">#</span><span class="preprocessor-keyword-directive">include</span> <span class="preprocessor-system-include-literal">&quot;pt_cornell_1_2.h&quot;</span>
+  7 
+  8 <span class="comment">//</span> <span class="comment">Configure</span> <span class="comment">digital</span> <span class="comment">potentiometer</span> <span class="comment">to</span> <span class="comment">be</span> <span class="comment">writeable</span>
+  9 <span class="preprocessor-keyword-directive">#</span><span class="preprocessor-keyword-directive">define</span> <span class="pragma-omp-keyword-directive">Digipot_config_chan_A</span> 0b0000000000000000
+ 10 <span class="comment">//</span><span class="comment"> === </span><span class="comment">thread</span> <span class="comment">structures</span><span class="comment"> ============================================</span>
+ 11 <span class="comment">//</span> <span class="comment">thread</span> <span class="comment">control</span> <span class="comment">structs</span>
+ 12 <span class="comment">//</span> <span class="comment">note</span> <span class="comment">that</span> <span class="comment">UART</span> <span class="comment">input</span> <span class="comment">and</span> <span class="comment">output</span> <span class="comment">are</span> <span class="comment">threads</span>
+ 13 <span class="keyword-directive">static</span> <span class="keyword-directive">struct</span> pt pt_cmd, pt_input, pt_output, pt_DMA_output ;
+ 14 
+ 15 <span class="keyword-directive">volatile</span> SpiChannel spiChn = SPI_CHANNEL1 ;
+ 16 <span class="keyword-directive">volatile</span> <span class="keyword-directive">int</span> spiClkDiv = 4 ; <span class="comment">//</span><span class="comment">run</span> <span class="comment">spi</span> <span class="comment">at</span><span class="comment"> 10 </span><span class="comment">MHz</span>
+ 17 
+ 18 
+ 19 <span class="comment">//</span><span class="comment"> === </span><span class="comment">Command</span> <span class="comment">Thread</span><span class="comment"> ======================================================</span>
+ 20 <span class="comment">//</span> <span class="comment">The</span> <span class="comment">serial</span> <span class="comment">interface</span>
+ 21 <span class="comment">//</span><span class="comment">Primary</span> <span class="comment">use</span> <span class="comment">of</span> <span class="comment">microcontroller</span> <span class="comment">is</span> <span class="comment">to</span> <span class="comment">control</span> <span class="comment">all</span> <span class="comment">of</span> <span class="comment">the</span> <span class="comment">various</span> <span class="comment">circuits</span> 
+ 22 <span class="comment">//</span><span class="comment">used</span> <span class="comment">in</span> <span class="comment">the</span> <span class="comment">circuit</span><span class="comment"> (</span><span class="comment">literal</span> <span class="comment">controller</span><span class="comment">)</span><span class="comment">.</span>
+ 23 <span class="keyword-directive">static</span> <span class="keyword-directive">char</span> cmd[16]; 
+ 24 <span class="keyword-directive">static</span> <span class="keyword-directive">int</span> value;
+ 25 
+ 26 <span class="keyword-directive">static</span> PT_THREAD (protothread_cmd(<span class="keyword-directive">struct</span> pt *pt))
+ 27 {
+ 28     PT_BEGIN(pt);
+ 29       <span class="keyword-directive">while</span>(1) {
+ 30           
+ 31             <span class="comment">//</span> <span class="comment">send</span> <span class="comment">the</span> <span class="comment">prompt</span> <span class="comment">via</span> <span class="comment">DMA</span> <span class="comment">to</span> <span class="comment">serial</span>
+ 32             sprintf(PT_send_buffer,<span class="ST1">&quot;</span><span class="preprocessor-system-include-literal">cmd&gt;</span>&quot;);
+ 33             // by spawning a print thread
+ 34             PT_SPAWN(pt, &amp;pt_DMA_output, PT_DMA_PutSerialBuffer(&amp;pt_DMA_output) );
+ 35  
+ 36           //spawn a thread to handle terminal input
+ 37             // the input thread waits for input
+ 38             // -- BUT does NOT block other threads
+ 39             // string is returned in &quot;PT_term_buffer&quot;
+ 40             PT_SPAWN(pt, &amp;pt_input, PT_GetSerialBuffer(&amp;pt_input) );
+ 41             // returns when the thread dies
+ 42             // in this case, when &lt;enter&gt; is pushed
+ 43             // now parse the string
+ 44              sscanf(PT_term_buffer, &quot;%s %d&quot;, cmd, &amp;value);
+ 45          
+ 46 
+ 47              
+ 48               if (cmd[0]==&#39;d&#39; ) {
+ 49                 //set mux to DSP chip
+ 50                 mPORTAClearBits(BIT_4);
+ 51                 mPORTBClearBits(BIT_13);
+ 52                 mPORTASetBits(BIT_4);
+ 53                 mPORTBClearBits(BIT_3 | BIT_7 | BIT_8 | BIT_9);
+ 54                  
+ 55                  if(((value &lt;&lt; 6) &amp; (0x0040))){
+ 56                      mPORTBSetBits(BIT_3);
+ 57                  }
+ 58                      //select sound effect
+ 59                  mPORTBSetBits(value &lt;&lt; 6);
+ 60                  }
+ 61              if (cmd[0] == &#39;s&#39;){ //distortion
+ 62                  //set mux to Distortion
+ 63                 mPORTAClearBits(BIT_4);
+ 64                 mPORTBClearBits(BIT_13);
+ 65              }
+ 66              if (cmd[0] == &#39;n&#39;){ //normal: only tone stack
+ 67                  //set mux to channel 0
+ 68                 mPORTAClearBits(BIT_4);
+ 69                 mPORTBClearBits(BIT_13);
+ 70                 mPORTBSetBits(BIT_13);
+ 71              }
+ 72              //pots
+ 73              if (cmd[0] == &#39;t&#39;){ //treble
+ 74                 // CS low to start transaction
+ 75                 mPORTBClearBits(BIT_4); // start transaction
+ 76                 deliverSPICh1Datum(value);
+ 77                 // CS high
+ 78                 mPORTBSetBits(BIT_4); // end transaction
+ 79              }
+ 80              if (cmd[0] == &#39;b&#39;){ //bass
+ 81                 // CS low to start transaction
+ 82                 mPORTAClearBits(BIT_0); // start transaction
+ 83                 deliverSPICh1Datum(value);
+ 84                 // CS high
+ 85                 mPORTASetBits(BIT_0); // end transaction
+ 86             }
+ 87             if (cmd[0] == &#39;v&#39;){ //level
+ 88                 // CS low to start transaction
+ 89                     mPORTAClearBits(BIT_2); // start transaction
+ 90                     deliverSPICh1Datum(value);                              
+ 91                      // CS high
+ 92                     mPORTASetBits(BIT_2); // end transaction
+ 93             }
+ 94             if (cmd[0] == &#39;m&#39;){ //mid
+ 95                 // CS low to start transaction
+ 96                 mPORTAClearBits(BIT_3); // start transaction
+ 97                 deliverSPICh1Datum(value);
+ 98                 // CS high
+ 99                 mPORTASetBits(BIT_3); // end transaction
+100             }
+101                           
+102             // never exit while
+103       } // END WHILE(1)
+104   PT_END(pt);
+105 } // thread 3
+106 
+107 //instead of writing SPI code repeatedly, made a function.
+108 //Used various chip selects on the same channel to change
+109 //values of various different digital potentiometers
+110 void deliverSPICh1Datum(int datum){
+111     // test for ready
+112      while (TxBufFullSPI1());
+113      // write to spi2
+114      WriteSPI1(Digipot_config_chan_A | datum);
+115     // test for done
+116     while (SPI1STATbits.SPIBUSY); // wait for end of transaction
+117      // CS high
+118     // mPORTBSetBits(BIT_4); // end transaction
+119 }
+120 
+121 // === Main  ======================================================
+122 
+123 int main(void)
+124 {
+125 
+126   // === config the uart, DMA, SPI ===========
+127   PT_setup();
+128 
+129   // == SPI ==
+130   //enable SPI at 10 MHz clock to meet digital potentiometer specifications
+131   SpiChnOpen(spiChn, SPI_OPEN_ON | SPI_OPEN_MODE16 | SPI_OPEN_MSTEN | SPI_OPEN_CKE_REV , spiClkDiv);
+132   
+133   // === setup system wide interrupts  ====================
+134   INTEnableSystemMultiVectoredInt();
+135     
+136   // === set up i/o port pin ===============================
+137   //Port B bits, 3,7,8, and 9 are used to select digital output
+138   //Port B bit 4 is used as chip select for treble digital potentiometer
+139   //Port B bit 13 is used as a select signal for output effect selection multiplexer
+140   //Additional functionality would use the TFT to display which output was being
+141   //selected
+142   mPORTBSetPinsDigitalOut(BIT_4 | BIT_3|BIT_7 | BIT_8 | BIT_9 |BIT_13);    //Set port as output
+143  
+144   //Port A Bits 0,2,and 3 are used to configure digital potentiometers (chip selects). Port A bit 4 is used
+145   //for multiplexing whether to have input from Digital effector chip, distortion,
+146   //or pure tonestack sound
+147   mPORTASetPinsDigitalOut(BIT_0 | BIT_2 | BIT_3 | BIT_4);
+148   // === now the threads ===================================
+149   
+150   // init the threads
+151   PT_INIT(&amp;pt_cmd);
+152   PT_INIT(&amp;pt_time);
+153   
+154   //==Digipot spi stuff
+155    // SCK2 is pin 26 
+156     // SDO1 (MOSI) is in PPS output group 1, could be connected to RB5 which is pin 14
+157     PPSOutput(2, RPB5, SDO1);
+158     // control CS for DAC
+159     //mPORTBSetPinsDigitalOut(BIT_4); //CS
+160     mPORTBSetBits(BIT_4 | BIT_6);
+161     //===
+162     
+163     mPORTASetBits(BIT_0 | BIT_2 | BIT_3 | BIT_4); //CS pins active high
+164     mPORTAClearBits(BIT_4);
+165     mPORTBClearBits(BIT_13);
+166     mPORTBSetBits(BIT_13);
+167     
+168     
+169   // schedule the threads
+170   while(1) {
+171       //cmd used as command center for all effects
+172     PT_SCHEDULE(protothread_cmd(&amp;pt_cmd));
+173   }
+174 } // main
+</pre></body>
+</html>
