@@ -67,7 +67,7 @@
 									</ul>
 										
 										<h5>Details</h5>
-									<p><span class="image left"><img src="images/HardwareBlockDiagram.png" width=400px alt="" /></span>There are two methods of interfacing with the amplifier. The first  resembles a classic guitar amplifier where the user controls the analog effects via knobs connected to analog potentiometers. As is standard, the input of the amplifier comes from a ¼” TS Male Auxiliary cord attached to an electric or acoustic guitar. We have a ¼” TS female to 3.5 mm TRS male adaptor. This in turn connects to a 3.5 mm adaptor which is wired directly into our circuit.<br/>The second style of interfacing with the amplifier is via the PIC32 microcontroller which controls and applies digital effects. These sound effects are outputs of a Belton BTSE-16 chip, which, through onboard DSP, synthesize various effects. These effects include chorus, flanger, phaser, tremolo, delay, reverb, and various combinations thereof. </p>
+									<p><span class="image left"><img src="images/HardwareBlockDiagram.png" width=400px alt="" /><i>Figure 1: Initial Design Idea</i></span>There are two methods of interfacing with the amplifier. The first  resembles a classic guitar amplifier where the user controls the analog effects via knobs connected to analog potentiometers. As is standard, the input of the amplifier comes from a ¼” TS Male Auxiliary cord attached to an electric or acoustic guitar. We have a ¼” TS female to 3.5 mm TRS male adaptor. This in turn connects to a 3.5 mm adaptor which is wired directly into our circuit.<br/>The second style of interfacing with the amplifier is via the PIC32 microcontroller which controls and applies digital effects. These sound effects are outputs of a Belton BTSE-16 chip, which, through onboard DSP, synthesize various effects. These effects include chorus, flanger, phaser, tremolo, delay, reverb, and various combinations thereof. </p>
 								
 									<p><span class="image right"><img src="images/bluetooth.png" height=300px alt="" /></span>As part of our ‘stretch goal’, the primary standard to which we've conformed is determined by the Bluetooth Special Interest Group (SIG). The standard for Bluetooth that we will be following is set by IEEE 802.15.1. The standard essentially sets the MAC addresses available for our use as well as limits our applications to the 2.4-2.485 GHz ISM band. </p>
 								</div>
@@ -80,21 +80,21 @@
 									<p>A large portion of the project was devoted to building and testing standard analog circuitry for generating our desired effects. The schematics for these are included below.</p>
 									<div class="features">
 										<article>
-											<a href="http://www.instructables.com/id/Very-simple-and-cheap-GuitarBass-distortion-pedal/" class="image"><img src="images/distortion.jpg" alt="" /></a>
+											<a href="http://www.instructables.com/id/Very-simple-and-cheap-GuitarBass-distortion-pedal/" class="image"><img src="images/distortion.jpg" alt="" /><i>Figure 2: Distortion Schematic</i></a>
 											<div class="inner">
 												<h4>Distortion</h4>
 												<p>Our input goes through a common emitter amplifier with the 10k and 100k resistors deciding the gain of the circuit. The 100 nF and 10 uF capacitors decide the frequency response of the circuit with a lower input capacitance creating a more treble-heavy sound and a higher input capacitance creating a more bass-heavy sound. The schottky diodes act as clipping diodes creating the distorted sound we hear at the output.</p>
 											</div>
 										</article>
 										<article>
-											<a href="http://www.runoffgroove.com/tonemender.html" class="image"><img src="images/tonestack.png" alt="" /></a>
+											<a href="http://www.runoffgroove.com/tonemender.html" class="image"><img src="images/tonestack.png" alt="" /><i>Figure 3: Tonestack Schematic</i></a>
 											<div class="inner">
 												<h4>Tone Stack</h4>
 												<p>Our input goes through a high pass filter into a unity gain op amp (pins 1,2, and 3). The treble potentiometer adjusts a high-pass filter that sets the cutoff frequency below which no frequencies can pass. The bass potentiometer adjusts a low-pass filter that sets the cutoff frequency above which no frequencies can pass. The mid potentiometer acts as a band-pass filter that amplifies the center frequency about which treble and bass act. The level potentiometer changes the magnitude of the output signal by altering the gain of the second op-amp (pins 5, 6, and 7). Pins 4 and 8 are the ground and Vdd (8.84 Volts) of the op-amp respectively.This schematic was found on <a href = "www.runoffgroove.com/tonemender.html">Run Off Groove</a>. We modified the circuit to use LF353 op amps, as they gave the desired performance and were readily available.</p>
 											</div>
 										</article>
 										<article>
-											<a href="http://www.ti.com/lit/ds/symlink/tpa3122d2.pdf" class="image"><img src="images/classdamp.png" alt="" /></a>
+											<a href="http://www.ti.com/lit/ds/symlink/tpa3122d2.pdf" class="image"><img src="images/classdamp.png" alt="" /><i>Figure 4: Class-D Amplifier Schematic</i></a>
 											<div class="inner">
 												<h4>Class-D Amplifier</h4>
 												<p>We used a TPA3122D2 15 Watt Class-D power amplifier in order to drive the signal to our speakers. The class-D amplifier uses pulse width modulation to take our analog input signal, convert it into pulses, and amplify the signal. In order to set the voltage high enough to drive the speaker, a capacitor is placed between the FET-driven output and the bootstrap pin. The amplified pulse train is converted back into an analog signal with the passive low-pass filter (capacitor and inductor) out of the ROUT pins of the chip (pins 12 and 13). This low-pass filter acts as an integrator to the PWM. Finally, we add DC offset to our signal with our 470 uF capacitor in order to output a audible signal to our speakers, without negative output.</p>
@@ -108,9 +108,9 @@
 									<div class="features">
 										<article>
 											<a href="http://www.accutronicsreverb.com/main/?skin=sub01_07.html" class="image">
-												<img src="images/BTSE-16FX_img.jpg" alt="" />Digital Sound Effector Chip
-												<img src="images/BTSE16FX_01.gif" />Wiring Schematic
-												<img src="images/digital_effects_list.png"/>16 Digital Effects Control With 4-Bit Signal
+												<img src="images/BTSE-16FX_img.jpg" alt="" /><i>Figure 5: Digital Sound Effector Chip</i>
+												<img src="images/BTSE16FX_01.gif" /><i>Figure 6: Wiring Schematic</i>
+												<img src="images/digital_effects_list.png"/><i>Figure 7: 16 Digital Effects Control With 4-Bit Signal</i>
 											</a>
 											<div class="inner">
 												<h4>Digital Effects Chip</h4>
@@ -118,14 +118,14 @@
 											</div>
 										</article>
 										<article>
-											<a href="http://www.gearbest.com/other-accessories/pp_227678.html" class="image"><img src="images/hc05.jpg" alt="" /></a>
+											<a href="http://www.gearbest.com/other-accessories/pp_227678.html" class="image"><img src="images/hc05.jpg" alt="" /><i>Figure 8: HC-05 bluetooth Module</i></a>
 											<div class="inner">
 												<h4>HC-05 Bluetooth Module</h4>
 												<p>The HC-05 bluetooth module handles almost all responsibilities associated with establishing a bluetooth connection with any other bluetooth-enabled device. The HC-05 communicates over UART with the PIC which both transmits and received data. The chip works by publishing a bluetooth service and allowing another client - the smartphone - to pair with the module. Through the use of a bluetooth terminal on a smartphone (eg. blu-term) one can send data and test the uart connection with the PIC. </p>
 											</div>
 										</article>
 										<article>
-											<a href="http://www.microchip.com/wwwproducts/Devices.aspx?product=PIC32MX250F128B" class="image"><img src="images/pic32.png" alt="" /><img src="images/OverallSchematic.png" width=400px alt="" />Overall Schematic of Project</a>
+											<a href="http://www.microchip.com/wwwproducts/Devices.aspx?product=PIC32MX250F128B" class="image"><img src="images/pic32.png" alt="" /><img src="images/OverallSchematic.png" width=400px alt="" /><i>Figure 9: Overall Schematic of Project</i></a>
 									<div class="inner">
 												<h4>Pic32 Microcontroller</h4>
 												<p>The Pic32 is a class of 32-bit microcontrollers manufactured by Microchip. It was used as the main control center for the guitar amplifier. Its integration into the project can be seen in the left hand schematic describing how the overall projct was wired. Using UART, it was able to communicate with a smartphone using bluetooth. Then, using various pins as digital output, it selcted various multiplexer signals as necessary, as well as the correct outputs to the speaker. In addition, using SPI, the microcontroller was used to control various 100K digital potentiometers. As a result, it was crucial to use the PIC in the project, as otherwise integration would not have been possible </p>
@@ -167,7 +167,7 @@
                                     <h5>Bluetooth</h5>
                                     <p>Using the HC-05 chip, bluetooth was used to control all aspects of the other circuits built for the project. Using a UART interface, bluetooth was very effective in controlling the amplifier. It was implemented using the protothreads DMA UART libraries. In the interest of time, we did not develop a front end for the bluetooth, however, using a bluetooth terminal on an Android device instead. Future work would involve building a fully functional front end to the amplifier. </p>
                                         <h5> Distortion</h5>
-                                        <p> Our goal for the distortion portion of the circuit was to take our input signal through a raw distorted effect and output it through our class-D amplifier to our speakers. FIGURE BLANK (PUT DISTORTION PICTURE) presents the 'clipped' signal that is outputted from the distortion circuit. Our final distortion circuit was protoboarded and presented with the distortion effect being clearly heard through our speakers. </p>
+                                        <p> Our goal for the distortion portion of the circuit was to take our input signal through a raw distorted effect and output it through our class-D amplifier to our speakers. <span class="image right"><img src="images/IMG_2418.jpg" height=300px alt="" /><i>Figure 10: Distortion of Sinusoid on Oscilloscope</i></span> presents the 'clipped' signal that is outputted from the distortion circuit. Our final distortion circuit was protoboarded and presented with the distortion effect being clearly heard through our speakers. </p>
 										<h5> Tonestack </h5>
 										<p> Our primary goal for the tonestack was to implement both analog potentiometers as well as digital potentiometers that could control the bass, mid, treble, and level functionalities of our guitar amplifier. The 100 kilaohm digital potentiometers wwould be controlled via smartphone through our HC-05 Bluetooth module and PIC32 microcontroller while the analog potentiometers would be controlled via physical tunable knobs on the guitar amplifier. 
                                             <p>The analog portion of the tonestack was successfully wired on a breadboard and soldered onto a protoboard. The  values chosen were 250 kilaohms for the bass/treble potentiometers and 100 kilaohms for the level/mid potentiometers. The effects themselves worked very well both on an oscilloscope as well as through our Class-D amplifier. Figures 1 and 3 present the bass and treble potentiometers tuned to their highest values, respectively cutting off the high and low frequencies from the signal input. Figures 7 and 9 present the bass and treble potentiometers tuned to their lower values, passing far more high and low frequencies from the signal input. Figure 2 presents the level potentiometer tuned to its highest value increasing the gain of the circuit. This capture can be compared to Figure 8 which presents the level potentiometer tuned to its lowest value (peak-to-peak value of the signal increases from 1 Volt to 9.6 Volts as level increases). Figure 4 presents the mid potentiometer tuned to its highest value amplifying the center frequency of our input signal. A small amount of 'clipping' is noticable due to our mid-potentiometer exceeding the dynamic range of our two 250 kilaohm bass/treble potentiometers. Figures 5 and 6 present the level and mid potentiometers tuned to their respective 'half-way' marks. Each potentiometer had a clear effect on the signal input when driven through the class-D amplifier to our speakers.                                    </p>
@@ -214,7 +214,7 @@
 								</div>
 							</section>
 				
-						<section id="six">
+						<section id="five">
 							<div class="container">
 								<h3>Conclusions</h3>
 								<p> There are a few key improvements that we aim to make to our guitar amplifier in the future. First of all, we aim to replace our 250 k-ohm bass and treble potentiometers with 500 k-ohm potentiometers within our analog tonestack. This should allow for more significant effects by changing our cutoff frequency range as well as prevent any possible clipping at our output. Secondly, we aim to rewire our 100 kilaohm digital potentiometers in parallel with our analog potentiometers to achieve our digital/analog switch capabilities. Other portions of our design that could be improved include the overall integration of the circuitry as well as the aesthetic presentation of the final prototype. Moving forward, we hope to fabricate a PCB with streamlined connections that will both ensure quality and miniaturize the size of the amp. Additionally we hope to house the amp in a wooden case that will protect and improve the quality of the overall product.</p>
@@ -228,7 +228,7 @@
                                 By designing this guitar amplifier, it has been our intention to improve the current amps on the market by adding useful capabilities that are absent in any current designs. As such, we've strove to make as great an impact on this market as possible given the time constraints and available resources. Therefore, throughout our design process we have seeked honest criticism in all forms from our peers and have worked to enhance out own technical compentence in order to unerstand the greater limitations imposed on us by the technology used.</p>
 							    <h5>Legal Considerations</h5>
                                 <p>Our project includes a Bluetooth Module, AC-DC wall outlet power supply, and several voltage regulators which are all subject to FCC standards:<br />
-                                    Our HC-05 Bluetooth module uses the Bluetooth Specification v2.0+EDR protocol, operates on a 2.4GHz ISM band, and has an emission power of <=-84dBm. It also operates at 3.3V and includes authentication and encryption protocols for data transfer. 
+                                    Our HC-05 Bluetooth module uses the Bluetooth Specification v2.0+EDR protocol, operates on a 2.4GHz ISM band, and has an emission power of <=-84dBm. It also operates at 3.3V and includes authentication and encryption protocols for data transfer. <span class="image right"><img src="images/IMG_0275.jpg" height=300px alt="" /><i>Figure 11: Voltage Regulators on Breadboard</i></span>
                                     Included in our design is an AC power adapter with converts a 12V AC wall outlet output to a DC current with a voltage that may be stepped down to work with our circuitry. 
                                     In addition, several voltage regulators were used to power the various components of our project. Since several components required 3.3V, 5V, and 9-12V voltages, we used linear voltage regulators to step down the output of the AC power adapter just described.  
                                     These components and respective specifications adhere to FCC standard restrictions and thus our design is capable of operating legally in the US.
@@ -236,7 +236,7 @@
                             </div>		
 						</section>
 
-						<section>
+						<section id="six">
 							<div class="container">
 								<h2>Appendix</h2>
 								<ul class="actions">
@@ -347,6 +347,12 @@
                             <h5>Figures</h5>
                             <ul>
                                 <li></li>
+                            </ul>
+                            <h5>Tasks Carried Out By Team Members</h5>
+                            <ul>
+                                <li>Samir: Composed code related to bluetooth module, worked with multiplexer integration, protoboarding, contributed to website submission.</li>
+                                <li>Justin: Worked with multiplexer and digital potentiometer integration, protoboarding, composed code related to SPI, designed website submission.</li>
+                                <li>Adarsh: Designed and prototyped analog circuitry, performed background research related to amp circuits, contributed to website submission.</li>
                             </ul>
 						</div>
 					</section>
