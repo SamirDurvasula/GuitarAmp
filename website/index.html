@@ -137,24 +137,28 @@
 										<h3><a href="code.html">Code Details</a></h3>
 									<h4>Main Method</h4>
 									<p>In our main method, we follow typical procedure in first initializing protothreads, enabling interrupts, declaring input and output pins, opening SPI channel 1 for the digipots, setting initial values for SPI CS pins, and then scheduling the main thread. Pin mappings were as follows:
-									<ul>
-										<li>RA0, RA2, RA3, RB4 --> Digipot Clock Select (CS) pins</li>
-										<li>RB3, RB7, RB8, RB9 --> DFX Chip Binary Select Signal</li>
-										<li>RB5 --> Digipots SDO (MOSI) Pin</li>
-										<li>RB14 --> Digipots SCK</li></li>
-										<li>RA4, RB13 --> Output Multiplexer Select Signal</li>
-									</ul></p>
-										<h4>Command Thread</h4>
-										<p>The command thread begins by spawning a thread which waits for input through a serial command-line interface. By pairing the HC-05 chip with a smartphone running a terminal interface, the PIC is able to send data and receive input commands from a user. In put is entered and received in the form of a key, value pair. Following a data entry, the command is examined and particular tasks are performed depending on the data received. The following explains the various command a user may input: <br> 
-										<ul>
-											<li>Key: 'd' --> Value: Number which translates to 4-bit binary input to DFX chip. Also sets output mux to DFX chip.</li>
-											<li>Key: 's' --> Sets output mux to distortion.</li>
-											<li>Key: 'n' --> Sets output mux to normal (signal through tonestack only).</li>
-											<li>Key: 't' --> Value: Send value via SPI to digipot controlling treble.</li>
-											<li>Key: 'b' --> Value: Send value via SPI to digipit controlling bass.</li>
-											<li>Key: 'v' --> Value: Send value via SPI to digipot controlling level.</li>
-											<li>Key: 'm' --> Value: Send value via SPI to digipot controlling mid.</li>
-										</ul></p>
+									    <ul>
+										    <li>RA0, RA2, RA3, RB4 --> Digipot Clock Select (CS) pins</li>
+										    <li>RB3, RB7, RB8, RB9 --> DFX Chip Binary Select Signal</li>
+										    <li>RB5 --> Digipots SDO (MOSI) Pin</li>
+										    <li>RB14 --> Digipots SCK</li></li>
+										    <li>RA4, RB13 --> Output Multiplexer Select Signal</li>
+									    </ul>
+                                    </p>
+									<h4>Command Thread</h4>
+									<p>The command thread begins by spawning a thread which waits for input through a serial command-line interface. By pairing the HC-05 chip with a smartphone running a terminal interface, the PIC is able to send data and receive input commands from a user. In put is entered and received in the form of a key, value pair. Following a data entry, the command is examined and particular tasks are performed depending on the data received. The following explains the various command a user may input: <br> 
+									    <ul>
+										    <li>Key: 'd' --> Value: Number which translates to 4-bit binary input to DFX chip. Also sets output mux to DFX chip.</li>
+										    <li>Key: 's' --> Sets output mux to distortion.</li>
+										    <li>Key: 'n' --> Sets output mux to normal (signal through tonestack only).</li>
+										    <li>Key: 't' --> Value: Send value via SPI to digipot controlling treble.</li>
+										    <li>Key: 'b' --> Value: Send value via SPI to digipit controlling bass.</li>
+										    <li>Key: 'v' --> Value: Send value via SPI to digipot controlling level.</li>
+										    <li>Key: 'm' --> Value: Send value via SPI to digipot controlling mid.</li>
+									    </ul>
+                                    </p>
+                                    <h4>SPI Function</h4>
+                                    <p>A function <i>deliverSPICh1Datum</i> was called whenever we wanted to send SPI data over channel 1. This was called whenever a command altering the resistance of a digipot was made.</p>    
 									</div>
 									
 								</div>
@@ -184,30 +188,30 @@
 <p> In order to fix these issues, we first capacitively coupled the board with a 1 uF capacitor. This ensured that the PWM would work, as input power was smooth and consistent. Volume control was basd on the amount used as VCC. It is important to note that for the chip to function, this had to be at least 10 V. When the waveforms were viewed on the oscilloscope, after filtering of the PWM, outputs looked like all of the input waveforms, but with amplitude of approximately 5 V. The power from this was enough to drive the speakers with the desired outputs.</p>
                                     
 <h5> Integration </h5>
-<p> <span class="image right"><img src="images/InitialState.jpg" width=400px alt="" /></span> In integration, we hoped to have bluetooth control whether effects should come from the digital effects or distortion, both driven from output of the tonestack, or sound from just the tonestack. We were able to confirm that our multiplexer control of the circuit, with select signals from bluetooth, was able to select which input to drive the class D amplifier with. In addition, in develoopment, integration had completely worked before perfboarding the tonestack. However, after the aformentioned AC-DC spike, some parts failed, and integration had not worked. In addition, power may not have been consistent enough from an AC power supply to give the desired outputs. When outputs were reached, some appeared to be very noisy. Integration is a big goal for future improvements of this project. We hope to PCB all circuits and ensure consisency in integration</p>                                    
+<p> <span class="image right"><img src="images/IMG_0272.jpg" width=400px alt="" /><i>Figure 11: Bluetooth Communication with Pic</i></span> In integration, we hoped to have bluetooth control whether effects should come from the digital effects or distortion, both driven from output of the tonestack, or sound from just the tonestack. We were able to confirm that our multiplexer control of the circuit, with select signals from bluetooth, was able to select which input to drive the class D amplifier with. In addition, in develoopment, integration had completely worked before perfboarding the tonestack. However, after the aformentioned AC-DC spike, some parts failed, and integration had not worked. In addition, power may not have been consistent enough from an AC power supply to give the desired outputs. When outputs were reached, some appeared to be very noisy. Integration is a big goal for future improvements of this project. We hope to PCB all circuits and ensure consisency in integration</p>                                    
 									
 									<h4>Gallery</h4>
-									<span class="image fit"><img src="images/banner2.png" alt="" /></span>
+									<span class="image fit"><img src="images/banner2.png" alt="" /><i>Figure 12: Pic32, Digipot, DSP Chip, Distortion, and Mux</i></span>
 									<div class="box alt">
 										<div class="row 50% uniform">
-											<div class="4u"><span class="image fit"><img src="images/screen_cap/IMG_0279.jpg" alt="" /><i>Figure X: Output of DSP Chip Flanger effect driven by 550 kHz sine wave</i></span></div>
-											<div class="4u"><span class="image fit"><img src="images/screen_cap/IMG_0281.jpg" alt="" /><i>Output of Class-D Amplifier from DSP chip</i></span></div>
-											<div class="4u"><span class="image fit"><img src="images/screen_cap/IMG_0282.jpg" alt="" /><i>Different Effect output</i></span></div>
+											<div class="4u"><span class="image fit"><img src="images/screen_cap/IMG_0279.jpg" alt="" /><i>Figure 13: Output of DSP Chip Flanger effect driven by 550 kHz sine wave</i></span></div>
+											<div class="4u"><span class="image fit"><img src="images/screen_cap/IMG_0281.jpg" alt="" /><i>Figure 14: Output of Class-D Amplifier from DSP chip</i></span></div>
+											<div class="4u"><span class="image fit"><img src="images/screen_cap/IMG_0282.jpg" alt="" /><i>Figure 15: Different Effect output</i></span></div>
 										</div>
 										<div class="row 50% uniform">
-											<div class="4u"><span class="image fit"><img src="images/screen_cap/high_bass.png" alt="" /><i>Figure x: High Bass</i></span></div>
-											<div class="4u"><span class="image fit"><img src="images/screen_cap/high_level.png" alt="" /><i>Figure X: High Level</i></span></div>
-											<div class="4u"><span class="image fit"><img src="images/screen_cap/high_treble.png" alt="" /><i>Figure X: High Treble</i></span></div>
+											<div class="4u"><span class="image fit"><img src="images/screen_cap/high_bass.png" alt="" /><i>Figure 16: High Bass</i></span></div>
+											<div class="4u"><span class="image fit"><img src="images/screen_cap/high_level.png" alt="" /><i>Figure 17: High Level</i></span></div>
+											<div class="4u"><span class="image fit"><img src="images/screen_cap/high_treble.png" alt="" /><i>Figure 18: High Treble</i></span></div>
 										</div>
 										<div class="row 50% uniform">
-											<div class="4u"><span class="image fit"><img src="images/screen_cap/mid_high.png" alt="" /><i>Figure x: Mid High</i></span></div>
-											<div class="4u"><span class="image fit"><img src="images/screen_cap/mid_level.png" alt="" /><i>Figure x: Mid Level</i></span></div>
-											<div class="4u"><span class="image fit"><img src="images/screen_cap/mid_mid.png" alt="" /><i>Figure x: Mid Mid</i></span></div>
+											<div class="4u"><span class="image fit"><img src="images/screen_cap/mid_high.png" alt="" /><i>Figure 19: Mid High</i></span></div>
+											<div class="4u"><span class="image fit"><img src="images/screen_cap/mid_level.png" alt="" /><i>Figure 20: Mid Level</i></span></div>
+											<div class="4u"><span class="image fit"><img src="images/screen_cap/mid_mid.png" alt="" /><i>Figure 21: Mid Mid</i></span></div>
 										</div>
 										<div class="row 50% uniform">
-											<div class="4u"><span class="image fit"><img src="images/screen_cap/no_bass.png" alt="" /><i>Figure x: Low Bass</i></span></div>
-											<div class="4u"><span class="image fit"><img src="images/screen_cap/no_level.png" alt="" /><i>Figure x: Low Level</i></span></div>
-											<div class="4u"><span class="image fit"><img src="images/screen_cap/no_treble.png" alt="" /><i>Figure x: Low Treble</i></span></div>
+											<div class="4u"><span class="image fit"><img src="images/screen_cap/no_bass.png" alt="" /><i>Figure 22: Low Bass</i></span></div>
+											<div class="4u"><span class="image fit"><img src="images/screen_cap/no_level.png" alt="" /><i>Figure 23: Low Level</i></span></div>
+											<div class="4u"><span class="image fit"><img src="images/screen_cap/no_treble.png" alt="" /><i>Figure 24: Low Treble</i></span></div>
 										</div>
 									</div>
 									</section>
@@ -228,7 +232,7 @@
                                 By designing this guitar amplifier, it has been our intention to improve the current amps on the market by adding useful capabilities that are absent in any current designs. As such, we've strove to make as great an impact on this market as possible given the time constraints and available resources. Therefore, throughout our design process we have seeked honest criticism in all forms from our peers and have worked to enhance out own technical compentence in order to unerstand the greater limitations imposed on us by the technology used.</p>
 							    <h5>Legal Considerations</h5>
                                 <p>Our project includes a Bluetooth Module, AC-DC wall outlet power supply, and several voltage regulators which are all subject to FCC standards:<br />
-                                    Our HC-05 Bluetooth module uses the Bluetooth Specification v2.0+EDR protocol, operates on a 2.4GHz ISM band, and has an emission power of <=-84dBm. It also operates at 3.3V and includes authentication and encryption protocols for data transfer. <span class="image right"><img src="images/IMG_0275.jpg" height=300px alt="" /><i>Figure 11: Voltage Regulators on Breadboard</i></span>
+                                    Our HC-05 Bluetooth module uses the Bluetooth Specification v2.0+EDR protocol, operates on a 2.4GHz ISM band, and has an emission power of <=-84dBm. It also operates at 3.3V and includes authentication and encryption protocols for data transfer. <span class="image right"><img src="images/IMG_0275.jpg" height=300px alt="" /><i>Figure 25: Voltage Regulators on Breadboard</i></span>
                                     Included in our design is an AC power adapter with converts a 12V AC wall outlet output to a DC current with a voltage that may be stepped down to work with our circuitry. 
                                     In addition, several voltage regulators were used to power the various components of our project. Since several components required 3.3V, 5V, and 9-12V voltages, we used linear voltage regulators to step down the output of the AC power adapter just described.  
                                     These components and respective specifications adhere to FCC standard restrictions and thus our design is capable of operating legally in the US.
