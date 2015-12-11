@@ -60,7 +60,7 @@
 									<h5>Things I Can Do</h5>
 									<ul class="feature-icons">
 										<li class="fa-wifi">Interface via bluetooth with smartphone</li>
-										<li class="fa-cubes">Perform <a>Digital Effects</a></li>
+										<li class="fa-cubes">Perform <a href="#three">Digital Effects</a></li>
 										<li class="fa-book">Modify bass, treble, and mid with physical knobs</li>
 										<li class="fa-book">Modify bass, treble, and mid digitally</li>
 										
@@ -165,7 +165,7 @@
 								<div class="container">
 										<h3>Results</h3>
                                     <h5>Bluetooth</h5>
-                                    <p>Using the HC-05 chip, bluetooth was used to control all aspects of the other circuits built for the project. USing a UART interface, bluetooth was very effective in controlling the amplifier. It was implemented using the protothreads DMA UART libraries. In the interest of time, we did not develop a front end for the bluetooth, however, using a bluetooth terminal on an Android device instead. Future work would involve building a fully functional front end to the amplifier. </p>
+                                    <p>Using the HC-05 chip, bluetooth was used to control all aspects of the other circuits built for the project. Using a UART interface, bluetooth was very effective in controlling the amplifier. It was implemented using the protothreads DMA UART libraries. In the interest of time, we did not develop a front end for the bluetooth, however, using a bluetooth terminal on an Android device instead. Future work would involve building a fully functional front end to the amplifier. </p>
                                         <h5> Distortion</h5>
                                         <p> Our goal for the distortion portion of the circuit was to take our input signal through a raw distorted effect and output it through our class-D amplifier to our speakers. FIGURE BLANK (PUT DISTORTION PICTURE) presents the 'clipped' signal that is outputted from the distortion circuit. Our final distortion circuit was protoboarded and presented with the distortion effect being clearly heard through our speakers. </p>
 										<h5> Tonestack </h5>
@@ -190,39 +190,67 @@
 									<span class="image fit"><img src="images/banner2.png" alt="" /></span>
 									<div class="box alt">
 										<div class="row 50% uniform">
-											<div class="4u"><span class="image fit"><img src="images/screen_cap/IMG_0279.jpg" alt="" /></span></div>
-											<div class="4u"><span class="image fit"><img src="images/screen_cap/IMG_0281.jpg" alt="" /></span></div>
-											<div class="4u"><span class="image fit"><img src="images/screen_cap/IMG_0282.jpg" alt="" /></span></div>
+											<div class="4u"><span class="image fit"><img src="images/screen_cap/IMG_0279.jpg" alt="" /><i>Figure X: Output of DSP Chip Flanger effect driven by 550 kHz sine wave</i></span></div>
+											<div class="4u"><span class="image fit"><img src="images/screen_cap/IMG_0281.jpg" alt="" /><i>Output of Class-D Amplifier from DSP chip</i></span></div>
+											<div class="4u"><span class="image fit"><img src="images/screen_cap/IMG_0282.jpg" alt="" /><i>Different Effect output</i></span></div>
 										</div>
 										<div class="row 50% uniform">
-											<div class="4u"><span class="image fit"><img src="images/screen_cap/high_bass.png" alt="" /></span></div>
-											<div class="4u"><span class="image fit"><img src="images/screen_cap/high_level.png" alt="" /></span></div>
-											<div class="4u"><span class="image fit"><img src="images/screen_cap/high_treble.png" alt="" /></span></div>
+											<div class="4u"><span class="image fit"><img src="images/screen_cap/high_bass.png" alt="" /><i>Figure x: High Bass</i></span></div>
+											<div class="4u"><span class="image fit"><img src="images/screen_cap/high_level.png" alt="" /><i>Figure X: High Level</i></span></div>
+											<div class="4u"><span class="image fit"><img src="images/screen_cap/high_treble.png" alt="" /><i>Figure X: High Treble</i></span></div>
 										</div>
 										<div class="row 50% uniform">
-											<div class="4u"><span class="image fit"><img src="images/screen_cap/mid_high.png" alt="" /></span></div>
-											<div class="4u"><span class="image fit"><img src="images/screen_cap/mid_level.png" alt="" /></span></div>
-											<div class="4u"><span class="image fit"><img src="images/screen_cap/mid_mid.png" alt="" /></span></div>
+											<div class="4u"><span class="image fit"><img src="images/screen_cap/mid_high.png" alt="" /><i>Figure x: Mid High</i></span></div>
+											<div class="4u"><span class="image fit"><img src="images/screen_cap/mid_level.png" alt="" /><i>Figure x: Mid Level</i></span></div>
+											<div class="4u"><span class="image fit"><img src="images/screen_cap/mid_mid.png" alt="" /><i>Figure x: Mid Mid</i></span></div>
 										</div>
 										<div class="row 50% uniform">
-											<div class="4u"><span class="image fit"><img src="images/screen_cap/no_bass.png" alt="" /></span></div>
-											<div class="4u"><span class="image fit"><img src="images/screen_cap/no_level.png" alt="" /></span></div>
-											<div class="4u"><span class="image fit"><img src="images/screen_cap/no_treble.png" alt="" /></span></div>
+											<div class="4u"><span class="image fit"><img src="images/screen_cap/no_bass.png" alt="" /><i>Figure x: Low Bass</i></span></div>
+											<div class="4u"><span class="image fit"><img src="images/screen_cap/no_level.png" alt="" /><i>Figure x: Low Level</i></span></div>
+											<div class="4u"><span class="image fit"><img src="images/screen_cap/no_treble.png" alt="" /><i>Figure x: Low Treble</i></span></div>
 										</div>
 									</div>
 									</section>
 								</div>
 							</section>
+				
+						<section id="six">
+							<div class="container">
+								<h3>Conclusions</h3>
+								<p> There are a few key improvements that we aim to make to our guitar amplifier in the future. First of all, we aim to replace our 250 k-ohm bass and treble potentiometers with 500 k-ohm potentiometers within our analog tonestack. This should allow for more significant effects by changing our cutoff frequency range as well as prevent any possible clipping at our output. Secondly, we aim to rewire our 100 kilaohm digital potentiometers in parallel with our analog potentiometers to achieve our digital/analog switch capabilities. Other portions of our design that could be improved include the overall integration of the circuitry as well as the aesthetic presentation of the final prototype. Moving forward, we hope to fabricate a PCB with streamlined connections that will both ensure quality and miniaturize the size of the amp. Additionally we hope to house the amp in a wooden case that will protect and improve the quality of the overall product.</p>
+								<h5>Standards</h5>
+								<p>Our design conformed to all relevant IEEE standards. This was this case since most of the complex signal processing was performed by industry-standard chips and externally integrated circuits. For instance, the HC-05 chip conforms to all standards set out by the IEEE Bluetooth Special Interest Group (SIG). Not to mention, the BTSE-16FX DSP chip is a standard module included in many digital guitar amplifiers and conforms to IEEE standards.</p>
+								<h5>Intellectual Property Considerations</h5>
+								<p>As for intellectual property considerations, all source code was produced by members of our group. All external packages such as protothreads were used with permission of the instructor. Similarly all analog circuit designs and external modules (Digital Sound Effector, Bluetooth chips) were adapted from open-sourced, publicly available schematics and therefore required no legal agreements be made with original authors. As a result, our designs could potentially be patented with few to no Intellectual Property conflicts. As we have open-sourced our designs, our work may also be published in any magazine or journal.</p>
+								<h5>Ethical Considerations</h5>
+								<p>Our project was executed with close attention paid to the IEEE Code of Ethics. During our planning, design, and execution phases, we held ourselves to high ethical standards which included working to not only ensure our project met all quality technical standards, but also holding ourselves to a professional working standard. We made sure to constantly interface with other students, TAs and Teaching Assistants with a respectable level of maturity and made an immense effort to work out all technical problems that arose internally within our group. 
+                                With specific regards to the <a href="http://www.ieee.org/about/corporate/governance/p7-8.html">Code of Ethics</a>, our project is absent of any potential unsafe factors which intentionally endanger the public or environment. As we have open-sourced our designs, we have minimized any potential conflicts of interest and false claims about the technology used.<br />
+                                By designing this guitar amplifier, it has been our intention to improve the current amps on the market by adding useful capabilities that are absent in any current designs. As such, we've strove to make as great an impact on this market as possible given the time constraints and available resources. Therefore, throughout our design process we have seeked honest criticism in all forms from our peers and have worked to enhance out own technical compentence in order to unerstand the greater limitations imposed on us by the technology used.</p>
+							    <h5>Legal Considerations</h5>
+                                <p>Our project includes a Bluetooth Module, AC-DC wall outlet power supply, and several voltage regulators which are all subject to FCC standards:<br />
+                                    Our HC-05 Bluetooth module uses the Bluetooth Specification v2.0+EDR protocol, operates on a 2.4GHz ISM band, and has an emission power of <=-84dBm. It also operates at 3.3V and includes authentication and encryption protocols for data transfer. 
+                                    Included in our design is an AC power adapter with converts a 12V AC wall outlet output to a DC current with a voltage that may be stepped down to work with our circuitry. 
+                                    In addition, several voltage regulators were used to power the various components of our project. Since several components required 3.3V, 5V, and 9-12V voltages, we used linear voltage regulators to step down the output of the AC power adapter just described.  
+                                    These components and respective specifications adhere to FCC standard restrictions and thus our design is capable of operating legally in the US.
+                                </p> 
+                            </div>		
+						</section>
 
-						<!-- Five -->
-						<!-- -->
-							<section id="five">
+						<section>
+							<div class="container">
+								<h2>Appendix</h2>
+								<ul class="actions">
+									<li><a href="code.html"><input type="submit" class="special" value="Commented Code"></a></li>
+                                    <li><a href="schematics.html"><input type="submit" class="special" value="Schematics"></a></li>
+                                    <li></li>
+								</ul>
+							</div>
+						</section>
+
+							<section>
 								<div class="container">
 								
 										<h4>Parts List</h4>
-										
-
-										<h5>Alternate</h5>
 										<div class="table-wrapper">
 											<table class="alt">
 												<thead>
@@ -294,35 +322,32 @@
 								</div>
 						</section>
 				
-						<section id="six">
-							<div class="container">
-								<h3>Conclusions</h3>
-								<p> There are a few key improvements that we aim to make to our guitar amplifier in the future. First of all, we aim to replace our 250 k-ohm bass and treble potentiometers with 500 k-ohm potentiometers within our analog tonestack. This should allow for more significant effects by changing our cutoff frequency range as well as prevent any possible clipping at our output. Secondly, we aim to rewire our 100 kilaohm digital potentiometers in parallel with our analog potentiometers to achieve our digital/analog switch capabilities. Other portions of our design that could be improved include the overall integration of the circuitry as well as the aesthetic presentation of the final prototype. Moving forward, we hope to fabricate a PCB with streamlined connections that will both ensure quality and miniaturize the size of the amp. Additionally we hope to house the amp in a wooden case that will protect and improve the quality of the overall product.</p>
-								<h4>Standards</h4>
-								<p>Our design conformed to all relevant IEEE standards. This was this case since most of the complex signal processing was performed by industry-standard chips and externally integrated circuits. For instance, the HC-05 chip conforms to all standards set out by the IEEE Bluetooth Special Interest Group (SIG). Not to mention, the BTSE-16FX DSP chip is a standard module included in many digital guitar amplifiers and conforms to IEEE standards.</p>
-								<h4>Intellectual Property Considerations</h4>
-								<p>As for intellectual property considerations, all source code was produced by members of our group. All external packages such as protothreads were used with permission of the instructor. Similarly all analog circuit designs and external modules (Digital Sound Effector, Bluetooth chips) were adapted from open-sourced, publicly available schematics and therefore required no legal agreements be made with original authors. As a result, our designs could potentially be patented with few to no Intellectual Property conflicts. As we have open-sourced our designs, our work may also be published in any magazine or journal.</p>
-								<h4>Ethical Considerations</h4>
-								<p>Our project was executed with close attention paid to the IEEE Code of Ethics. During our planning, design, and execution phases, we held ourselves to high ethical standards which included working to not only ensure our project met all quality technical standards, but also holding ourselves to a professional working standard. We made sure to constantly interface with other students, TAs and Teaching Assistants with a respectable level of maturity and made an immense effort to work out all technical problems that arose internally within our group.</p>
-							</div>		
-						</section>
-
-						<section>
-							<div class="container">
-								<h3>Appendix</h3>
-								<ul class="actions">
-									<li><a href="code.html"><input type="submit" class="special" value="Code"></a></li>
-								</ul>
-							</div>
-						</section>
-				
 					<section>
 						<div class="container">
-							<h3>Sources</h3>
+							<h3>References</h3>
+                            <h5>Datasheets</h5>
 							<ul>
-								<li><a href="">www.example.com</a></li>
-								<li><a href="">Ben Jerry's Research</a></li>
+								<li>DSP Chip: <a href="">http://www.tubeampdoctor.com/images/File/BTSE-16FX_%20Accutronics%20DIGITAL%20SOUND%20EFFECTOR.pdf</a></li>
+								<li>Class-D Amplifier: <a href="">http://www.ti.com/lit/ds/symlink/tpa3122d2.pdf</a></li>
+                                <li>HC-05 Bluetooth Module: <a href="">http://cxem.net/arduino/download/HC%20Serial%20Bluetooth%20Products%20201104.pdf</a></li>
+                                <li>BTSE-16FX Chip<a href="">http://www.accutronicsreverb.com/</a></li>
+                                <li>100k Digital Potentiometers<a href="">http://ww1.microchip.com/downloads/en/DeviceDoc/22060b.pdf</a></li>
+                                <li>Pic32: <a>http://ww1.microchip.com/downloads/en/DeviceDoc/60001168H.pdf</a></li>
 							</ul>
+                            <h5>Borrowed Designs</h5>
+                            <ul>
+                                <li>Tonestack: <a href="">http://www.runoffgroove.com/tonemender.html</a></li>
+                                <li>Distortion: <a>http://www.instructables.com/id/Very-simple-and-cheap-GuitarBass-distortion-pedal/</a></li>
+                                <li>DSP Chip: <a>http://www.accutronicsreverb.com/</a></li>
+                            </ul>
+                            <h5>Background Sites</h5>
+                            <ul>
+                                <li>http://www.pial.net/using-the-hc-05-bluetooth-rs232-serial-module-for-cheap-wireless-communication-with-your-ucontroller/</li>
+                            </ul>
+                            <h5>Figures</h5>
+                            <ul>
+                                <li></li>
+                            </ul>
 						</div>
 					</section>
 
