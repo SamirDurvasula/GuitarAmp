@@ -158,7 +158,7 @@
 									    </ul>
                                     </p>
                                     <h4>SPI Function</h4>
-                                    <p>A function <i>deliverSPICh1Datum</i> was called whenever we wanted to send SPI data over channel 1. This was called whenever a command altering the resistance of a digipot was made.</p>    
+                                    <p>A function <i>deliverSPICh1Datum</i> was called whenever we wanted to send SPI data over channel 1. This was called whenever a command altering the resistance of a digipot (configured via SPI) was made. Calls to this function were performed after Clock Select (CS) was toggled low for the specific line over which data was sent, and before CS was reset to high to end the transaction.</p>    
 									</div>
 									
 								</div>
@@ -351,6 +351,12 @@
                             <h5>Background Sites</h5>
                             <ul>
                                 <li>http://www.pial.net/using-the-hc-05-bluetooth-rs232-serial-module-for-cheap-wireless-communication-with-your-ucontroller/</li>
+                            </ul>
+                            <h5>Figures</h5>
+                            <ul>
+                                <li>Figures 1, 9: digikey.com/schemeit</li>
+                                <li>Figure 10, 16-24: Oscilloscope Screen Capture</li>
+                                <li>Figure 11, 12, 26: In-Lab Photos</li>
                             </ul>
                             <h5>Tasks Carried Out By Team Members</h5>
                             <ul>
